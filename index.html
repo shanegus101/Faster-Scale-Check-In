@@ -1,825 +1,1100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#2f7d4f">
-<title>FASTER Check-In · Walk in the Light</title>
-<meta name="description" content="A Christ-centered FASTER scale self-check and journal for pornography recovery. Your entries stay on your device.">
+<title>FASTER · Freedom Check-In</title>
+<meta name="description" content="A private, Christ-centered FASTER Scale check-in and journal for pornography recovery.">
+<meta name="theme-color" content="#fafaf7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="FASTER">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f8a4c'/%3E%3Cpath d='M28 10h8v14h12v8H36v22h-8V32H16v-8h12z' fill='white'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lora:ital,wght@0,500;1,400&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* ============================================================
-   FASTER Check-In — minimal, warm, Christian-focused styling
-   ============================================================ */
-:root{
-  --ink:#23272b; --ink-2:#4b5159; --muted:#7b8289;
-  --bg:#fbfbf8; --card:#ffffff; --line:#e8e9e4;
-  --rec:#2f7d4f;  --rec-t:#eef5f0;
-  --f:#8cc63f;    --f-t:#f3f9ea;
-  --a:#c7d63b;    --a-t:#f8faea;
-  --s:#f7ce3e;    --s-t:#fef8e6;
-  --t:#f79e3d;    --t-t:#fef3e7;
-  --e:#f4742c;    --e-t:#fdefe7;
-  --r:#f0515b;    --r-t:#fdebec;
-  --radius:14px;
-  --shadow:0 1px 2px rgba(20,24,28,.05), 0 8px 24px rgba(20,24,28,.05);
-  --serif:ui-serif, Georgia, "Iowan Old Style", "Times New Roman", serif;
-  --sans:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{
-  background:var(--bg); color:var(--ink); font-family:var(--sans);
-  font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased;
-  padding-bottom:40px;
-}
-.wrap{max-width:860px;margin:0 auto;padding:0 16px}
-.rainbow{height:4px;background:linear-gradient(90deg,var(--rec),var(--f),var(--a),var(--s),var(--t),var(--e),var(--r))}
+  :root{
+    --bg:#fafaf7; --card:#ffffff; --text:#2b2f2c; --muted:#6b726d; --line:#e7e7e1;
+    --rec:#1f8a4c; --f:#6cc24a; --a:#b4d455; --s:#f4cf3d; --t:#f6ae3f; --e:#f2873a; --r:#ee4d4d;
+    --radius:16px;
+    --shadow:0 1px 2px rgba(0,0,0,.04), 0 6px 20px rgba(0,0,0,.05);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:'Nunito Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    background:var(--bg); color:var(--text); line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:calc(90px + env(safe-area-inset-bottom));
+  }
+  button{font:inherit;cursor:pointer}
+  .wrap{max-width:720px;margin:0 auto;padding:0 16px}
+  [hidden]{display:none !important}
 
-/* ---------- header ---------- */
-header{padding:26px 0 14px;text-align:center}
-.mark{display:inline-flex;align-items:center;gap:9px;color:var(--rec);font-weight:600;letter-spacing:.12em;font-size:12px;text-transform:uppercase}
-.mark svg{width:16px;height:16px}
-h1{font-family:var(--serif);font-weight:500;font-size:30px;line-height:1.15;margin:12px 0 6px;letter-spacing:-.01em}
-.verse{font-family:var(--serif);font-style:italic;color:var(--ink-2);max-width:520px;margin:0 auto;font-size:15px}
-.verse cite{display:block;font-style:normal;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+  /* ---------- Header ---------- */
+  header.top{
+    position:sticky;top:0;z-index:15;
+    background:rgba(250,250,247,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border-bottom:1px dotted #cfcfc8;
+  }
+  .top-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 16px}
+  .brand{display:flex;align-items:baseline;gap:10px}
+  .word{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:3px;line-height:1}
+  .word span{color:transparent;-webkit-text-stroke-width:1.5px}
+  .tag{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--rec)}
+  .top-right{display:flex;align-items:center;gap:8px}
+  .badge{background:#e8f5ee;color:var(--rec);font-weight:800;font-size:13px;padding:5px 10px;border-radius:999px;white-space:nowrap}
+  .icon-btn{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;color:var(--muted)}
+  .icon-btn:hover{color:var(--text)}
 
-/* ---------- tabs ---------- */
-nav.tabs{display:flex;gap:6px;justify-content:center;margin:20px 0 22px;flex-wrap:wrap}
-nav.tabs button{
-  font:inherit;font-size:14px;font-weight:600;color:var(--ink-2);background:#fff;
-  border:1px solid var(--line);border-radius:999px;padding:9px 16px;cursor:pointer;transition:.15s;
-}
-nav.tabs button:hover{border-color:#cfd3cb}
-nav.tabs button[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+  /* ---------- Generic ---------- */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+  .eyebrow{font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .scripture{font-family:'Lora',Georgia,serif;font-style:italic;font-size:18px;line-height:1.55;margin:8px 0 6px;color:#2f3a33}
+  cite{font-style:normal;font-size:13px;font-weight:700;color:var(--rec)}
+  .muted{color:var(--muted)}
+  .tiny{font-size:12.5px;color:var(--muted)}
+  .section-title{margin:28px 2px 12px}
+  .section-title h2{margin:0;font-size:22px;font-weight:800;letter-spacing:-.01em}
+  .section-title p{margin:4px 0 0;color:var(--muted);font-size:14.5px}
+  .verse-card{margin-top:18px;position:relative;overflow:hidden}
+  .verse-card::after{content:'';position:absolute;inset:auto 0 0 0;height:4px;
+    background:linear-gradient(90deg,var(--rec),var(--f),var(--a),var(--s),var(--t),var(--e),var(--r))}
+  .prayer-line{margin:12px 0 0;padding-top:12px;border-top:1px dashed var(--line);font-size:14px;color:var(--muted)}
+  .prayer-line b{color:var(--text)}
 
-section[hidden]{display:none}
+  .btn{border:1.5px solid var(--line);background:#fff;color:var(--text);padding:12px 18px;border-radius:12px;font-weight:800;font-size:15px;transition:transform .08s ease, box-shadow .2s}
+  .btn:active{transform:scale(.98)}
+  .btn.primary{background:var(--rec);border-color:var(--rec);color:#fff;box-shadow:0 6px 16px rgba(31,138,76,.25)}
+  .btn.ghost{background:transparent}
+  .btn.danger{color:#c43131;border-color:#f3c9c9;background:#fff}
+  .btn.sm{padding:8px 12px;font-size:13.5px;border-radius:10px}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+  .actions .btn{flex:1 1 auto}
+  .link{background:none;border:none;padding:0;color:var(--ink,var(--rec));font-weight:800;text-decoration:underline;text-underline-offset:3px}
 
-/* ---------- generic card ---------- */
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
-.pad{padding:16px}
-.label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 8px}
-.hint{font-size:13px;color:var(--muted);margin:6px 0 0}
-.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.spacer{flex:1}
+  /* ---------- Banners ---------- */
+  .banner{border-radius:14px;padding:14px 16px;margin:12px 0;font-size:14.5px}
+  .banner.crisis{background:#fff1f1;border:1.5px solid #f3b9b9;color:#7a1f1f}
+  .banner.crisis a{color:#b42020;font-weight:800}
+  .banner.grace{background:#f2f8f4;border:1.5px solid #cfe7d8;color:#1f4d33}
+  .banner.grace .scripture{font-size:16px;margin:6px 0}
+  .banner.edit{background:#fffbea;border:1.5px solid #f2e3a6;display:flex;justify-content:space-between;align-items:center;gap:10px}
 
-/* ---------- date + intensity ---------- */
-.topbar{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:18px}
-.field{flex:1;min-width:150px}
-input[type=date],input[type=text],input[type=password],textarea,select{
-  width:100%;font:inherit;color:var(--ink);background:#fff;border:1px solid var(--line);
-  border-radius:10px;padding:10px 12px;outline:none;transition:.15s;
-}
-input:focus,textarea:focus{border-color:#b9c0b4;box-shadow:0 0 0 3px rgba(47,125,79,.10)}
-textarea{min-height:76px;resize:vertical;line-height:1.55}
-input[type=range]{width:100%;accent-color:var(--rec)}
+  /* ---------- Status ---------- */
+  .status{margin-bottom:14px}
+  .status-main{display:flex;align-items:center;gap:14px;background:var(--tint);border:1.5px solid var(--c);border-radius:var(--radius);padding:12px 16px}
+  .status-name{font-weight:800;font-size:18px;color:var(--ink)}
+  .status-empty{border:1.5px dashed #d6d6cf;border-radius:var(--radius);padding:14px 16px;color:var(--muted);font-size:14.5px;background:#fff}
+  .suggest{margin-top:8px;font-size:14px;color:var(--muted);padding:0 4px}
+  .suggest b{color:var(--ink)}
+  .mini-letter{width:44px;height:44px;flex:0 0 44px;display:grid;place-items:center;font-family:'Bebas Neue',sans-serif;font-size:40px;line-height:1;color:transparent;-webkit-text-stroke:1.8px var(--c);padding-top:3px}
+  .mini-letter svg{width:26px;height:34px;stroke:var(--c);fill:none;stroke-width:2.4;stroke-linejoin:round}
+  .mini-letter.big{width:56px;height:56px;flex-basis:56px;font-size:52px}
 
-/* ---------- RECOVERY banner ---------- */
-.recovery{border:1px solid #cfe2d6;background:linear-gradient(180deg,#f5faf6,#ffffff);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
-.recovery-head{display:flex;gap:12px;align-items:center;padding:14px 16px;cursor:pointer;border-left:6px solid var(--rec)}
-.recovery-head .cross{width:34px;height:34px;flex:none;border-radius:50%;background:var(--rec);color:#fff;display:grid;place-items:center;font-size:18px;line-height:1}
-.recovery-head h2{margin:0;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--rec);font-weight:800}
-.recovery-head p{margin:2px 0 0;font-size:13px;color:var(--ink-2)}
+  /* ---------- Scale ---------- */
+  .scale{position:relative;display:flex;flex-direction:column;gap:12px}
+  .scale::before{content:'';position:absolute;left:43px;top:34px;bottom:34px;width:3px;border-radius:3px;
+    background:linear-gradient(var(--rec),var(--f),var(--a),var(--s),var(--t),var(--e),var(--r));opacity:.45}
+  .stage{position:relative;background:var(--card);border:1.5px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);transition:border-color .2s, background .2s}
+  .stage.selected{border-color:var(--c);background:var(--tint)}
+  .stage-head{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+  .stage-head:focus-visible{outline:3px solid var(--c);outline-offset:2px;border-radius:var(--radius)}
+  .letter{flex:0 0 58px;height:58px;display:grid;place-items:center;font-family:'Bebas Neue',sans-serif;font-size:58px;line-height:1;color:transparent;-webkit-text-stroke:2.2px var(--c);padding-top:5px;background:inherit;border-radius:10px}
+  .letter svg{width:32px;height:42px;stroke:var(--c);fill:none;stroke-width:2.4;stroke-linejoin:round}
+  .meta{flex:1;min-width:0}
+  .name{font-weight:800;color:var(--ink);text-transform:uppercase;letter-spacing:.07em;font-size:14.5px}
+  .desc{font-size:13.5px;color:var(--muted);line-height:1.35;margin-top:2px}
+  .head-right{display:flex;align-items:center;gap:8px}
+  .count{min-width:24px;height:24px;padding:0 7px;border-radius:999px;background:var(--c);color:var(--on);font-size:12.5px;font-weight:800;display:grid;place-items:center}
+  .here{border:1.5px solid var(--c);color:var(--ink);background:#fff;border-radius:999px;padding:6px 12px;font-weight:800;font-size:13px;white-space:nowrap}
+  .stage.selected .here{background:var(--c);color:var(--on)}
+  .chev{width:18px;height:18px;color:#a3a8a4;transition:transform .25s}
+  .stage.open .chev{transform:rotate(180deg)}
+  .stage-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
+  .stage.open .stage-body{grid-template-rows:1fr}
+  .stage-body > div{overflow:hidden}
+  .stage-inner{padding:0 16px 16px 84px}
+  .long{margin:0 0 12px;font-size:14px;color:var(--muted)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:7px 13px;font-size:14px;color:var(--text);line-height:1.3;text-align:left;transition:all .15s}
+  .chip:hover{border-color:var(--c)}
+  .chip.on{background:var(--tint);border-color:var(--c);color:var(--ink);font-weight:800}
+  .stage.selected .chip.on{background:#fff}
+  .chip.on::before{content:'✓ '}
+  .chips.static .chip{cursor:default}
+  .verse{margin:14px 0 0;padding:10px 14px;border-left:3px solid var(--c);font-family:'Lora',Georgia,serif;font-style:italic;font-size:14.5px;color:#3d463f;background:rgba(255,255,255,.6);border-radius:0 10px 10px 0}
+  .verse cite{display:block;margin-top:4px;font-family:'Nunito Sans',sans-serif;color:var(--ink)}
+  @media (max-width:520px){
+    .stage-inner{padding:0 14px 14px 14px}
+    .letter{flex-basis:46px;height:50px;font-size:48px}
+    .letter svg{width:26px;height:36px}
+    .scale::before{left:37px}
+    .desc{display:none}
+    .stage.open .desc{display:block}
+  }
 
-/* ---------- the vertical FASTER scale ---------- */
-.scale{margin-top:14px;position:relative}
-.stage{
-  position:relative;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--c);
-  border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:10px;overflow:hidden;transition:.18s;
-}
-.stage.sel{border-color:var(--c);box-shadow:0 0 0 2px var(--c) inset, var(--shadow)}
-.stage-head{display:flex;gap:12px;align-items:center;padding:12px 14px;cursor:pointer;user-select:none}
-.ltr{
-  width:46px;height:46px;flex:none;border-radius:12px;background:var(--ct);color:var(--c);
-  display:grid;place-items:center;font-family:var(--serif);font-weight:700;font-size:26px;line-height:1;
-}
-.stage.sel .ltr{background:var(--c);color:#fff}
-.stage-name{flex:1;min-width:0}
-.stage-name strong{display:block;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:800}
-.stage-name span{display:block;font-size:12.5px;color:var(--muted);margin-top:2px}
-.badge{font-size:12px;font-weight:800;color:#fff;background:var(--c);border-radius:999px;padding:2px 9px;min-width:24px;text-align:center}
-.badge[hidden]{display:none}
-.chev{color:#b9bdb4;font-size:13px;transition:transform .18s}
-.stage.open .chev{transform:rotate(90deg)}
-.here{
-  font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--c);
-  color:var(--c);background:#fff;border-radius:999px;padding:5px 10px;cursor:pointer;white-space:nowrap
-}
-.stage.sel .here{background:var(--c);color:#fff}
-.body{display:none;padding:2px 14px 14px}
-.stage.open .body,.recovery.open .body{display:block}
-.grp{margin:10px 0 2px;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800}
-.chips{display:flex;flex-wrap:wrap;gap:7px}
-.chip{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:#fff;border-radius:999px;
-  padding:7px 12px;font-size:13.5px;color:var(--ink-2);cursor:pointer;transition:.12s;line-height:1.25}
-.chip:hover{border-color:#cfd3cb}
-.chip input{appearance:none;width:13px;height:13px;border:1.5px solid #c6cbc1;border-radius:4px;margin:0;flex:none;transition:.12s}
-.chip input:checked{background:var(--c);border-color:var(--c);
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'><path d='M2.5 6.3l2.2 2.2L9.5 3.7' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
-  background-size:12px 12px;background-position:center;background-repeat:no-repeat}
-.chip.on{background:var(--ct);border-color:var(--c);color:var(--ink);font-weight:600}
+  /* ---------- Form ---------- */
+  .form label{display:block;font-weight:800;font-size:14px;margin:0 0 14px}
+  .form label span.hint{font-weight:600;color:var(--muted)}
+  textarea,input[type=text],input[type=tel],input[type=date]{
+    width:100%;margin-top:6px;border:1.5px solid var(--line);border-radius:12px;padding:11px 13px;
+    font:inherit;font-size:15px;font-weight:400;color:var(--text);background:#fdfdfb;resize:vertical;
+  }
+  textarea:focus,input:focus{outline:none;border-color:var(--rec);box-shadow:0 0 0 3px rgba(31,138,76,.12);background:#fff}
+  details{border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;margin:0 0 14px;background:#fdfdfb}
+  details[open]{background:#fff}
+  summary{cursor:pointer;font-weight:800;font-size:14px;color:var(--rec);list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:'＋ '}
+  details[open] summary::before{content:'－ '}
+  details label{margin-top:12px !important}
 
-/* ---------- reflection ---------- */
-.q{margin-bottom:14px}
-.q label{display:block;font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:6px}
-.darkband{background:#1c1f22;color:#f2f3f0;border-radius:var(--radius);padding:16px 18px;margin:18px 0}
-.darkband p{margin:6px 0;font-size:14px;display:flex;gap:9px}
-.darkband p span{color:#9fe0b5}
+  /* ---------- Journal ---------- */
+  .trend{display:flex;align-items:flex-end;gap:4px;height:90px;margin:14px 0 6px;padding:0 2px;border-bottom:1px solid var(--line)}
+  .bar{flex:1;max-width:22px;border-radius:6px 6px 2px 2px;min-height:6px}
+  .trend-legend{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted)}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+  .stat{background:#f6f6f2;border-radius:12px;padding:10px 12px}
+  .stat b{display:block;font-size:20px}
+  .stat span{font-size:12px;color:var(--muted)}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 12px}
+  .fchip{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px;font-weight:800;font-size:13px;color:var(--muted)}
+  .fchip.on{border-color:var(--c,var(--rec));color:var(--ink,var(--rec));background:var(--tint,#e8f5ee)}
+  .entry{display:flex;gap:12px;width:100%;text-align:left;background:#fff;border:1.5px solid var(--line);border-left:5px solid var(--c);border-radius:14px;padding:12px 14px;margin-bottom:10px;box-shadow:var(--shadow);color:var(--text)}
+  .entry:hover{background:var(--tint)}
+  .entry-main{flex:1;min-width:0}
+  .entry-top{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+  .entry-stage{font-weight:800;color:var(--ink)}
+  .entry-date{font-size:12.5px;color:var(--muted);white-space:nowrap}
+  .entry-sub{font-size:13px;color:var(--muted)}
+  .entry-notes{font-size:14px;margin-top:4px;color:#454b47;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+  .empty{text-align:center;padding:30px 16px;color:var(--muted)}
+  .empty .scripture{font-size:16px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .row .btn{flex:1 1 auto;text-align:center}
 
-/* ---------- buttons ---------- */
-.btn{font:inherit;font-weight:700;font-size:14.5px;border-radius:11px;padding:12px 18px;cursor:pointer;border:1px solid transparent;transition:.15s}
-.btn.primary{background:var(--rec);color:#fff}
-.btn.primary:hover{background:#27674'}
-.btn.primary:hover{background:#27673f}
-.btn.ghost{background:#fff;border-color:var(--line);color:var(--ink)}
-.btn.ghost:hover{border-color:#c9cec4}
-.btn.danger{background:#fff;border-color:#f3c6c9;color:#c8434d}
-.btn.sm{padding:8px 12px;font-size:13px;border-radius:9px}
-.btn:disabled{opacity:.45;cursor:not-allowed}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+  /* ---------- About ---------- */
+  .about h3{margin:22px 0 6px;font-size:17px}
+  .about p,.about li{font-size:15px;color:#3f4541}
+  .about ol,.about ul{padding-left:20px}
+  .legend{display:grid;gap:6px;margin-top:10px}
+  .legend div{display:flex;align-items:center;gap:10px;font-size:14.5px}
+  .dot{width:12px;height:12px;border-radius:50%;flex:0 0 12px}
 
-/* ---------- report / share ---------- */
-pre.report{white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;
-  background:#f7f8f5;border:1px solid var(--line);border-radius:12px;padding:14px;margin:12px 0;color:var(--ink-2)}
-.opts{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:13.5px;color:var(--ink-2)}
-.opts label{display:inline-flex;gap:7px;align-items:center;cursor:pointer}
+  /* ---------- Nav ---------- */
+  nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;justify-content:center;gap:6px;
+    background:rgba(255,255,255,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    border-top:1px solid var(--line);padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
+  .tab{flex:1;max-width:170px;border:none;background:none;border-radius:12px;padding:6px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;color:#8b918d;font-size:12px;font-weight:800}
+  .tab svg{width:22px;height:22px}
+  .tab.active{color:var(--rec);background:#eef7f1}
 
-/* ---------- history ---------- */
-.trend{display:flex;gap:5px;flex-wrap:wrap;margin:10px 0 2px}
-.dot{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;color:#fff;font-weight:800;font-size:12px;font-family:var(--serif)}
-.entry{border:1px solid var(--line);border-left:6px solid var(--c);border-radius:12px;background:#fff;margin-bottom:10px;box-shadow:var(--shadow)}
-.entry summary{list-style:none;cursor:pointer;padding:12px 14px;display:flex;gap:10px;align-items:center}
-.entry summary::-webkit-details-marker{display:none}
-.entry .when{font-weight:700;font-size:14px}
-.entry .pill{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--c);border-radius:999px;padding:3px 9px}
-.entry .det{padding:0 14px 14px;font-size:14px;color:var(--ink-2)}
-.entry .det h4{margin:12px 0 4px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.entry ul{margin:4px 0;padding-left:18px}
-.empty{text-align:center;color:var(--muted);padding:34px 10px;font-family:var(--serif);font-style:italic}
+  /* ---------- Dialogs ---------- */
+  dialog{border:none;border-radius:20px;padding:0;width:min(560px,calc(100% - 24px));max-height:calc(100dvh - 40px);box-shadow:0 20px 60px rgba(0,0,0,.25);color:var(--text)}
+  dialog[open]{display:flex;flex-direction:column}
+  dialog::backdrop{background:rgba(20,30,25,.45);backdrop-filter:blur(2px)}
+  .dlg-head{display:flex;justify-content:space-between;align-items:center;padding:16px 20px 6px}
+  .dlg-head h3{margin:0;font-size:19px}
+  .x{width:36px;height:36px;border-radius:10px;border:none;background:#f2f2ee;font-size:20px;line-height:1;color:var(--muted)}
+  .dlg-body{padding:8px 20px 20px;overflow:auto}
+  .detail-head{display:flex;align-items:center;gap:14px;background:var(--tint);border:1.5px solid var(--c);border-radius:14px;padding:12px 14px;margin-bottom:14px}
+  .bgroup{margin:12px 0}
+  .bgroup-title{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin-bottom:6px}
+  .block{margin-top:14px}
+  .block p{margin:4px 0 0;white-space:pre-wrap;font-size:15px}
+  .toggles{display:flex;gap:16px;flex-wrap:wrap;margin:8px 0;font-size:14px;font-weight:700}
+  .toggles input{accent-color:var(--rec);width:16px;height:16px;vertical-align:-3px;margin-right:6px}
+  #shareText{font-size:14px;line-height:1.45;min-height:240px}
+  .check{display:flex;gap:10px;align-items:center;font-weight:700;font-size:14px;margin:8px 0}
+  .check input{accent-color:var(--rec);width:18px;height:18px}
 
-/* ---------- guide ---------- */
-.guide h3{font-family:var(--serif);font-weight:600;font-size:19px;margin:22px 0 6px}
-.guide p,.guide li{color:var(--ink-2);font-size:14.5px}
-.guide a{color:var(--rec)}
-.scripture{border-left:3px solid var(--rec);padding:4px 0 4px 14px;font-family:var(--serif);font-style:italic;color:var(--ink-2);margin:12px 0}
+  /* ---------- Toast ---------- */
+  .toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);
+    background:#1f2a23;color:#fff;padding:11px 18px;border-radius:12px;font-weight:700;font-size:14px;opacity:0;pointer-events:none;transition:all .25s;z-index:50;max-width:90vw;text-align:center}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-/* ---------- toast / lock ---------- */
-#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:#1c1f22;color:#fff;
-  padding:12px 18px;border-radius:999px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:60}
-#toast.show{opacity:1;transform:translate(-50%,0)}
-#lock{position:fixed;inset:0;background:var(--bg);z-index:80;display:grid;place-items:center;padding:24px}
-#lock .box{max-width:320px;text-align:center}
-#lock input{text-align:center;letter-spacing:.5em;font-size:22px}
-footer{text-align:center;color:var(--muted);font-size:12.5px;padding:26px 16px 0;line-height:1.7}
-@media (max-width:480px){
-  h1{font-size:25px}.ltr{width:40px;height:40px;font-size:22px}
-  .stage-head{padding:11px 12px;gap:10px}.here{padding:4px 8px;font-size:10.5px}
-}
+  footer.foot{text-align:center;margin:36px 0 10px;font-size:13px;color:var(--muted)}
 </style>
 </head>
 <body>
-<div class="rainbow"></div>
 
-<!-- ============ OPTIONAL PRIVACY LOCK ============ -->
-<div id="lock" hidden>
-  <div class="box">
-    <div class="mark"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11 2h2v6h6v2h-6v12h-2V10H5V8h6z"/></svg> Private</div>
-    <h1 style="font-size:22px">Enter your passcode</h1>
-    <input id="lockPin" type="password" inputmode="numeric" maxlength="8" autocomplete="off" placeholder="••••">
-    <div class="actions" style="justify-content:center"><button class="btn primary" id="lockGo">Unlock</button></div>
-    <p class="hint">Forgot it? Clearing your browser data for this site removes the lock — and your journal.</p>
+<header class="top">
+  <div class="top-inner wrap">
+    <div class="brand">
+      <div class="word" aria-label="FASTER">
+        <span style="-webkit-text-stroke-color:var(--f)">F</span><span style="-webkit-text-stroke-color:var(--a)">A</span><span style="-webkit-text-stroke-color:var(--s)">S</span><span style="-webkit-text-stroke-color:var(--t)">T</span><span style="-webkit-text-stroke-color:var(--e)">E</span><span style="-webkit-text-stroke-color:var(--r)">R</span>
+      </div>
+      <div class="tag">Freedom Check-In</div>
+    </div>
+    <div class="top-right">
+      <span id="freedomBadge" class="badge" hidden></span>
+      <button id="settingsBtn" class="icon-btn" aria-label="Settings">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+      </button>
+    </div>
   </div>
-</div>
+</header>
 
-<div class="wrap">
-  <header>
-    <div class="mark">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11 2h2v6h6v2h-6v12h-2V10H5V8h6z"/></svg>
-      Walk in the Light
-    </div>
-    <h1>FASTER Scale Check-In</h1>
-    <p class="verse" id="headVerse">
-      “But if we walk in the light, as he is in the light, we have fellowship with one another, and the blood of Jesus his Son cleanses us from all sin.”
-      <cite>1 John 1:7</cite>
-    </p>
-  </header>
+<main class="wrap">
 
-  <nav class="tabs" role="tablist">
-    <button role="tab" id="tab-check"  aria-selected="true"  data-panel="p-check">Today’s Check-In</button>
-    <button role="tab" id="tab-hist"   aria-selected="false" data-panel="p-hist">My Journal</button>
-    <button role="tab" id="tab-guide"  aria-selected="false" data-panel="p-guide">Guide &amp; Settings</button>
-  </nav>
-
-  <!-- ============ CHECK-IN ============ -->
-  <section id="p-check" role="tabpanel">
-    <div class="topbar">
-      <div class="field">
-        <p class="label">Date</p>
-        <input type="date" id="date">
-      </div>
-      <div class="field">
-        <p class="label">Intensity today — <span id="intenseVal">5</span>/10</p>
-        <input type="range" id="intensity" min="1" max="10" value="5">
-      </div>
+  <!-- ================= CHECK-IN ================= -->
+  <section class="view" id="view-checkin">
+    <div class="card verse-card">
+      <div class="eyebrow">Verse for today</div>
+      <p class="scripture" id="dailyVerse"></p>
+      <cite id="dailyRef"></cite>
+      <p class="prayer-line"><b>Begin with prayer:</b> “Lord, show me honestly where I am today, and lead me back to You.”</p>
     </div>
 
-    <!-- RECOVERY (horizontal banner across the top of the scale) -->
-    <div class="recovery card-like" id="recRow" style="--c:var(--rec);--ct:var(--rec-t)">
-      <div class="recovery-head" data-toggle>
-        <div class="cross">✝</div>
-        <div class="stage-name" style="flex:1">
-          <h2>Recovery</h2>
-          <p>Accepting life on God’s terms — with trust, vulnerability, honesty and gratitude.</p>
-        </div>
-        <span class="badge" id="badge-RECOVERY" hidden>0</span>
-        <button class="here" data-here="RECOVERY" type="button">I’m here</button>
-        <span class="chev">▶</span>
-      </div>
-      <div class="body" id="body-RECOVERY"></div>
+    <div id="editBanner" class="banner edit" hidden>
+      <span>Editing check-in from <b id="editDate"></b></span>
+      <button class="btn sm ghost" id="cancelEdit">Cancel</button>
     </div>
 
-    <!-- F A S T E R (vertical, F at top → R at bottom) -->
-    <div class="scale" id="scale"></div>
-
-    <!-- reflection -->
-    <div class="darkband">
-      <p><span>›</span> How does this behavior affect me? How do I act and feel?</p>
-      <p><span>›</span> How does this behavior impact the important people in my life?</p>
-      <p><span>›</span> How do I think I’m benefiting from this behavior? Is that healthy?</p>
+    <div class="section-title">
+      <h2>Where am I today?</h2>
+      <p>Tap each stage to see its behaviors. Select any you notice, from any stage, then tap <b>I’m here</b> on the stage that best describes you right now.</p>
     </div>
 
-    <div class="card pad">
-      <div class="q"><label for="q1">1 · How is this affecting me — how am I acting and feeling?</label><textarea id="q1" placeholder="Honest, specific, no shame…"></textarea></div>
-      <div class="q"><label for="q2">2 · How is this impacting the important people in my life?</label><textarea id="q2"></textarea></div>
-      <div class="q"><label for="q3">3 · What do I think I’m getting from this? Is that actually healthy?</label><textarea id="q3"></textarea></div>
-      <div class="q"><label for="step">My next right step (small, today, measurable)</label><textarea id="step" placeholder="Call Mike tonight · phone charges in the kitchen · 20-min walk after work · re-install accountability app"></textarea></div>
-      <div class="q" style="margin-bottom:4px"><label for="prayer">Prayer / what I need the group to pray for</label><textarea id="prayer" placeholder="Lord, create in me a clean heart…"></textarea></div>
-      <p class="hint">Everything you type stays on this device only. Nothing is uploaded anywhere.</p>
-      <div class="actions">
-        <button class="btn primary" id="save">Save check-in</button>
-        <button class="btn ghost" id="buildShare">Build share report</button>
-        <button class="btn ghost" id="reset">Clear form</button>
-      </div>
+    <div id="statusCard" class="status"></div>
+
+    <div id="crisis" class="banner crisis" hidden>
+      <b>You matter deeply to God and to us.</b> If you’re having thoughts of suicide or self-harm, please reach out right now: call or text <a href="tel:988">988</a> (Suicide &amp; Crisis Lifeline, U.S.) or your local emergency number. Then tell someone in your group. You don’t have to carry this alone.
     </div>
 
-    <!-- share -->
-    <div class="card pad" id="sharePanel" hidden style="margin-top:14px">
-      <p class="label">Share with your group text</p>
-      <div class="opts" id="shareOpts">
-        <label><input type="checkbox" data-opt="name" checked> My name</label>
-        <label><input type="checkbox" data-opt="behaviors" checked> Behaviors</label>
-        <label><input type="checkbox" data-opt="step" checked> Next right step</label>
-        <label><input type="checkbox" data-opt="prayer" checked> Prayer request</label>
-        <label><input type="checkbox" data-opt="reflection"> Reflection answers</label>
-        <label><input type="checkbox" data-opt="verse" checked> Scripture</label>
-      </div>
-      <div class="row" style="margin-top:10px">
-        <input type="text" id="myName" placeholder="Your name (saved on this device)" style="max-width:280px">
-      </div>
-      <pre class="report" id="report" contenteditable="true" spellcheck="false"></pre>
-      <div class="actions">
-        <button class="btn primary" id="shareBtn">Share…</button>
-        <button class="btn ghost" id="smsBtn">Open text app</button>
-        <button class="btn ghost" id="copyBtn">Copy</button>
-      </div>
-      <p class="hint">“Share…” opens your phone’s share sheet — pick your group chat. “Open text app” starts a new message with the report pre-filled (then choose your group). You can edit the report above before sending.</p>
+    <div id="grace" class="banner grace" hidden>
+      <b>Relapse is not the end of your story.</b>
+      <p class="scripture">“There is therefore now no condemnation for those who are in Christ Jesus.”</p>
+      <cite>Romans 8:1</cite>
+      <div style="margin-top:6px">Reach out to your accountability partner today. Confession brings healing (James 5:16). Get honest, get support, and take the next right step.</div>
+    </div>
+
+    <div id="scale" class="scale" aria-label="FASTER scale"></div>
+
+    <div class="section-title">
+      <h2>Reflect</h2>
+      <p>Be honest with yourself and with God. These notes stay on this device unless you choose to share them.</p>
+    </div>
+
+    <div class="card form">
+      <label>Personal notes
+        <textarea id="notes" rows="4" placeholder="What happened today? What am I feeling? What triggered me?"></textarea>
+      </label>
+      <details id="reflectDetails">
+        <summary>Go deeper: the three questions</summary>
+        <label>How does this behavior affect me? How do I act and feel?
+          <textarea id="rAffect" rows="3"></textarea>
+        </label>
+        <label>How does this behavior impact the important people in my life?
+          <textarea id="rImpact" rows="3"></textarea>
+        </label>
+        <label>How do I think I’m benefiting from this behavior? Is that healthy?
+          <textarea id="rBenefit" rows="3"></textarea>
+        </label>
+      </details>
+      <label>One thing I’m grateful for <span class="hint">(optional)</span>
+        <input type="text" id="gratitude" placeholder="e.g., My wife’s patience, a good talk with my sponsor">
+      </label>
+      <label style="margin-bottom:0">My next right step <span class="hint">(optional)</span>
+        <input type="text" id="action" placeholder="e.g., Call my accountability partner tonight">
+      </label>
+    </div>
+
+    <div class="actions">
+      <button class="btn ghost" id="clearBtn">Clear</button>
+      <button class="btn" id="saveBtn">Save to journal</button>
+      <button class="btn primary" id="saveShareBtn">Save &amp; Share</button>
     </div>
   </section>
 
-  <!-- ============ JOURNAL ============ -->
-  <section id="p-hist" role="tabpanel" hidden>
-    <div class="card pad">
-      <p class="label">Where I’ve been — most recent 20</p>
-      <div class="trend" id="trend"></div>
-      <p class="hint" id="stats"></p>
+  <!-- ================= JOURNAL ================= -->
+  <section class="view" id="view-journal" hidden>
+    <div class="section-title">
+      <h2>My Journal</h2>
+      <p>Every check-in is stored privately on this device. Look back, notice patterns, and celebrate God’s faithfulness.</p>
     </div>
-    <div style="margin-top:14px" id="entries"></div>
+
+    <div class="card">
+      <div class="eyebrow">Your journey: recent check-ins</div>
+      <div id="trend" class="trend"></div>
+      <div class="trend-legend"><span>Older</span><span>Higher bars = closer to Recovery</span><span>Newest</span></div>
+      <div id="stats" class="stats"></div>
+    </div>
+
+    <div id="filters" class="filters"></div>
+    <div id="entries"></div>
+
+    <div class="card" style="margin-top:22px">
+      <div class="eyebrow">Backup &amp; privacy</div>
+      <p class="tiny" style="margin:8px 0 0">Your journal lives only in this browser on this device. Nothing is uploaded. Clearing browser data will erase it, so export a backup now and then.</p>
+      <div class="row">
+        <button class="btn sm" id="exportBtn">Export backup</button>
+        <label class="btn sm" style="cursor:pointer">Import backup<input type="file" id="importFile" accept="application/json,.json" hidden></label>
+        <button class="btn sm danger" id="wipeBtn">Delete all</button>
+      </div>
+    </div>
   </section>
 
-  <!-- ============ GUIDE ============ -->
-  <section id="p-guide" role="tabpanel" hidden>
-    <div class="card pad guide">
-      <h3 style="margin-top:4px">Why check in?</h3>
-      <p>Relapse is not an event — it’s a <em>process</em>. The FASTER scale names the slide that happens long before acting out, so you can get honest early, while the step back is still small. Read it top-down: <strong>F</strong>orgetting priorities → <strong>A</strong>ngst → <strong>S</strong>peeding up → <strong>T</strong>icked off → <strong>E</strong>xhausted → <strong>R</strong>elapse. Above it all sits <strong>Recovery</strong>: accepting life on God’s terms.</p>
-      <div class="scripture">“Confess your sins to one another and pray for one another, that you may be healed.” — James 5:16</div>
+  <!-- ================= ABOUT ================= -->
+  <section class="view about" id="view-about" hidden>
+    <div class="section-title"><h2>About this tool</h2></div>
+    <div class="card">
+      <p class="scripture" style="margin-top:0">“For freedom Christ has set us free; stand firm therefore, and do not submit again to a yoke of slavery.”</p>
+      <cite>Galatians 5:1</cite>
+
+      <h3>What is the FASTER Scale?</h3>
+      <p>The FASTER Scale, developed by Michael Dye (<i>The Genesis Process</i>), describes the predictable slide from restoration toward relapse. Relapse rarely “just happens.” It usually starts days or weeks earlier with small shifts in priorities. The earlier you notice the slide, the easier it is to turn around.</p>
+      <div class="legend">
+        <div><span class="dot" style="background:var(--rec)"></span><b>Recovery</b>: accepting life on God’s terms, with trust, vulnerability, and gratitude</div>
+        <div><span class="dot" style="background:var(--f)"></span><b>F</b>: Forgetting Priorities</div>
+        <div><span class="dot" style="background:var(--a)"></span><b>A</b>: Angst (Anxiety)</div>
+        <div><span class="dot" style="background:var(--s)"></span><b>S</b>: Speeding Up</div>
+        <div><span class="dot" style="background:var(--t)"></span><b>T</b>: Ticked Off</div>
+        <div><span class="dot" style="background:var(--e)"></span><b>E</b>: Exhausted</div>
+        <div><span class="dot" style="background:var(--r)"></span><b>R</b>: Relapse</div>
+      </div>
 
       <h3>How to use it</h3>
       <ol>
-        <li>Check in daily — 60 seconds is enough.</li>
-        <li>Tap the letter that honestly describes you right now, then check every behavior you see in yourself (from any row).</li>
-        <li>Answer the three questions. Write one small next step.</li>
-        <li>Share it with your accountability group text. Secrets grow in the dark; light kills them.</li>
+        <li>Start with prayer. Ask God to show you the truth.</li>
+        <li>Read the scale from the top down. Tap each stage and select every behavior you honestly notice. It’s normal to have some in several stages.</li>
+        <li>Tap <b>I’m here</b> on the stage that best describes you. This is usually the lowest stage where you see several behaviors.</li>
+        <li>Reflect using the three questions below, and name one next right step.</li>
+        <li>Save it to your journal and <b>share</b> it with your accountability group.</li>
+        <li>Look back over your journal to spot patterns and triggers.</li>
       </ol>
 
-      <h3>If you marked R — read this</h3>
-      <p>A relapse is not the end of your recovery, and it is never the end of God’s love for you. Don’t wait for shame to pass before you tell someone — tell them <em>now</em>, within 24 hours. Shame says “hide.” Repentance says “come home.”</p>
-      <div class="scripture">“If we confess our sins, he is faithful and just to forgive us our sins and to cleanse us from all unrighteousness.” — 1 John 1:9</div>
-
-      <h3>Privacy &amp; your data</h3>
-      <p>All entries live in this browser’s local storage on this device. There is no account, no server, no analytics. Clearing your browser data — or using private/incognito mode — will erase your journal. Export a backup regularly.</p>
-
-      <h3>Settings</h3>
-      <div class="actions">
-        <button class="btn ghost sm" id="setPin">Set / change passcode</button>
-        <button class="btn ghost sm" id="clearPin">Remove passcode</button>
-        <button class="btn ghost sm" id="exportBtn">Export backup (.json)</button>
-        <button class="btn ghost sm" id="importBtn">Import backup</button>
-        <button class="btn danger sm" id="wipeBtn">Delete all entries</button>
-      </div>
-      <input type="file" id="importFile" accept="application/json" hidden>
-      <p class="hint">The passcode is a privacy screen to keep casual eyes out — it is not encryption.</p>
-
-      <h3>Help beyond this app</h3>
+      <h3>The three questions</h3>
       <ul>
-        <li>Your pastor, small group, or a licensed counselor (ask for one trained in sexual addiction / CSAT).</li>
-        <li>Groups: Pure Desire, Celebrate Recovery, SA / SAA, Regeneration, XXXchurch.</li>
-        <li>Device protection: Covenant Eyes, Accountable2You, Canopy, Screen Time / Family Link.</li>
-        <li>In crisis or having thoughts of suicide: call or text <strong>988</strong> (U.S.) — right now.</li>
+        <li>How does this behavior affect me? How do I act and feel?</li>
+        <li>How does this behavior impact the important people in my life?</li>
+        <li>How do I think I’m benefiting from this behavior? Is that healthy?</li>
       </ul>
-      <p class="hint" style="margin-top:18px">The FASTER scale is adapted from Michael Dye’s <em>The Genesis Process</em>; the Recovery/Restoration list follows the format used by many church recovery ministries. This app is a self-awareness tool, not medical or clinical advice.</p>
+
+      <h3>Sharing with your group</h3>
+      <p>After saving, tap <b>Share</b>. On a phone, <b>Share…</b> opens your share sheet so you can pick Messages and choose your group chat. <b>Text my group</b> opens a new text with the report filled in. If you add your group’s phone numbers in Settings, it addresses them all. You can always choose whether to include your personal notes.</p>
+
+      <h3>Privacy</h3>
+      <p>Everything is stored only on your device using your browser’s local storage. There are no accounts, no servers, and no tracking.</p>
+
+      <h3>If you’re in crisis</h3>
+      <p>If you have thoughts of suicide or self-harm, call or text <a href="tel:988"><b>988</b></a> (U.S.) or your local emergency number right away.</p>
+
+      <p class="tiny" style="margin-top:20px">This tool supports, but doesn’t replace, your church community, recovery group, pastor, or a licensed counselor. Behaviors adapted from the FASTER Scale © Michael Dye, with additions specific to pornography recovery.</p>
+
+      <h3>Add to your home screen</h3>
+      <p>On iPhone, tap Share, then <i>Add to Home Screen</i>. On Android, tap the ⋮ menu, then <i>Add to Home screen</i>. It will open like an app.</p>
     </div>
   </section>
 
-  <footer>
-    “Create in me a clean heart, O God, and renew a right spirit within me.” — Psalm 51:10<br>
-    Built for the brothers and sisters still fighting. You are not alone.
-  </footer>
-</div>
+  <footer class="foot">“His mercies never come to an end; they are new every morning.” · Lamentations 3:22–23</footer>
+</main>
 
-<div id="toast"></div>
+<!-- ================= NAV ================= -->
+<nav class="tabs">
+  <button class="tab active" data-tab="checkin">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+    Check-In
+  </button>
+  <button class="tab" data-tab="journal">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    Journal
+  </button>
+  <button class="tab" data-tab="about">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4v6h6v4h-6v10h-4V12H4V8h6z"/></svg>
+    About
+  </button>
+</nav>
+
+<!-- ================= DIALOGS ================= -->
+<dialog id="entryDlg">
+  <div class="dlg-head"><h3>Check-in</h3><button class="x" data-close aria-label="Close">×</button></div>
+  <div class="dlg-body">
+    <div id="entryBody"></div>
+    <div class="actions">
+      <button class="btn danger" id="entryDelete">Delete</button>
+      <button class="btn" id="entryEdit">Edit</button>
+      <button class="btn primary" id="entryShare">Share</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="shareDlg">
+  <div class="dlg-head"><h3>Share with your group</h3><button class="x" data-close aria-label="Close">×</button></div>
+  <div class="dlg-body">
+    <p class="tiny" style="margin-top:0">Review your message. You can edit it before sending.</p>
+    <div class="toggles">
+      <label><input type="checkbox" id="shNotes">Include notes</label>
+      <label><input type="checkbox" id="shReflect">Include reflections</label>
+    </div>
+    <textarea id="shareText"></textarea>
+    <div class="actions">
+      <button class="btn primary" id="nativeShareBtn">Share…</button>
+      <button class="btn" id="smsBtn">Text my group</button>
+      <button class="btn ghost" id="copyBtn">Copy</button>
+    </div>
+    <p class="tiny"><b>Tip:</b> “Share…” opens your phone’s share sheet. Choose Messages, then pick your group chat.</p>
+  </div>
+</dialog>
+
+<dialog id="settingsDlg">
+  <div class="dlg-head"><h3>Settings</h3><button class="x" data-close aria-label="Close">×</button></div>
+  <div class="dlg-body form">
+    <label>Your first name <span class="hint">(shown on shared reports)</span>
+      <input type="text" id="setName" placeholder="e.g., Mike" autocomplete="given-name">
+    </label>
+    <label>Freedom start date <span class="hint">(optional, shows a day counter)</span>
+      <input type="date" id="setDate">
+    </label>
+    <label>Accountability group numbers <span class="hint">(optional, comma separated)</span>
+      <input type="tel" id="setNumbers" placeholder="+15551234567, +15557654321">
+    </label>
+    <label class="check"><input type="checkbox" id="setShareDays"> Include day counter in shared reports</label>
+    <label class="check"><input type="checkbox" id="setShareNotes"> Include notes in shared reports by default</label>
+    <label class="check"><input type="checkbox" id="setShareReflect"> Include reflections in shared reports by default</label>
+    <div class="actions"><button class="btn primary" id="saveSettings">Save settings</button></div>
+  </div>
+</dialog>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
 
 <script>
-/* ==========================================================================
-   DATA — stages, behaviors, verses
-   ========================================================================== */
+(() => {
+'use strict';
+
+/* ================= Helpers ================= */
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = () => (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2));
+const fmtDate = d => d.toLocaleDateString(undefined, {weekday:'short', month:'short', day:'numeric', year:'numeric'});
+const fmtTime = d => d.toLocaleTimeString(undefined, {hour:'numeric', minute:'2-digit'});
+
+const CROSS = '<svg viewBox="0 0 40 52" aria-hidden="true"><path d="M16 3h8v13h12v8H24v25h-8V24H4v-8h12z"/></svg>';
+const CHEV  = '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+
+/* ================= Data ================= */
 const STAGES = [
-  {
-    key:"RECOVERY", letter:"✝", label:"Recovery", color:"var(--rec)", tint:"var(--rec-t)", hex:"#2f7d4f",
-    tagline:"Accepting life on God’s terms",
-    verse:["Create in me a clean heart, O God, and renew a right spirit within me.","Psalm 51:10"],
-    general:[
-      "No current secrets","Being open and honest","Working to resolve problems",
-      "Identifying fears and feelings","Making eye contact","Reaching out to others first",
-      "True accountability","Increasing in relationship with God and others",
-      "Keeping commitments to meetings, prayer, family, church, goals and self",
-      "Gratitude — naming specific gifts","Serving someone else today","Sabbath / rest / worship",
-      "Sleeping 7–8 hours","Moving my body / time outdoors","Eating and hydrating like a son of God"
-    ],
-    specific:[
-      "Told the truth fast — within 24 hours","Daily check-in text or call made",
-      "Filters & accountability software on and reporting","Phone charges outside the bedroom",
-      "Scripture and prayer before screens","Attended my group / meeting",
-      "Bounced my eyes / turned away quickly","Named my triggers out loud to someone",
-      "Asked for help before, not after","Honest with my spouse — no half-truths",
-      "Replaced shame with repentance","Praying for the people in the images, not using them"
-    ]
+  { key:'REC', letter:'✝', name:'Recovery', emoji:'🌿',
+    color:'#1f8a4c', ink:'#1f7a45', tint:'#e9f6ee', on:'#ffffff',
+    short:'Accepting life on God’s terms, with trust, vulnerability, and gratitude.',
+    desc:'Walking in the light. No secrets, honest relationships, and daily dependence on God. Celebrate what’s going right.',
+    verse:{t:'Therefore, if anyone is in Christ, he is a new creation. The old has passed away; behold, the new has come.', r:'2 Corinthians 5:17'},
+    behaviors:['No current secrets','Filters & accountability software active','Devices out of the bedroom at night','Honest check-in with accountability partner','Attending recovery group / meetings','Daily prayer & time in Scripture','Guarding my eyes (“bouncing” my eyes)','Taking thoughts captive','Aware of my triggers (HALT: Hungry, Angry, Lonely, Tired)','Reaching out before acting out','Confessing quickly when I stumble','Working to resolve problems','Identifying fears and feelings','Keeping commitments to meetings, prayer, family, church, goals and self','Being open and honest','Making eye contact','Reaching out to others','Increasing in relationships with God and others','Serving others','Practicing gratitude','Healthy sleep, food & exercise','True accountability']
   },
-  {
-    key:"F", letter:"F", label:"Forgetting Priorities", color:"var(--f)", tint:"var(--f-t)", hex:"#8cc63f",
-    tagline:"Drifting quietly — before anything “happens”",
-    verse:["But seek first the kingdom of God and his righteousness.","Matthew 6:33"],
-    general:[
-      "Secrets","Avoiding support","Avoiding accountability","Sarcasm","Isolating",
-      "Obsessing over relationships","Breaking promises and commitments","Neglecting family",
-      "Preoccupation with material things","Procrastinating","Lying","Boredom",
-      "Changes in goals","Over-confidence (“I’ve got this now”)","Hiding money",
-      "Less time / energy for God, meetings and church"
-    ],
-    specific:[
-      "Skipped my daily check-in","Turned off or “just adjusted” my filter",
-      "Deleting history / using incognito","Taking my phone to bed or the bathroom",
-      "Vague answers when someone asks how I’m really doing",
-      "Following accounts I know are trouble","Stopped reading Scripture / praying",
-      "Haven’t talked to my accountability partner in days"
-    ]
+  { key:'F', letter:'F', name:'Forgetting Priorities', emoji:'🟢',
+    color:'#6cc24a', ink:'#3f8f22', tint:'#eef8e9', on:'#1d2a17',
+    short:'Drifting from what matters most. Trusting circumstances more than God.',
+    desc:'A subtle shift in where my time, energy, and thoughts go. Denial and small compromises begin.',
+    verse:{t:'But seek first the kingdom of God and his righteousness, and all these things will be added to you.', r:'Matthew 6:33'},
+    behaviors:['Secrets','Avoiding support','Avoiding accountability','Letting filters or accountability lapse','Skipping prayer or time in the Word','Sarcasm','Isolating','Obsessing over relationships','Breaking promises and commitments','Neglecting family','Preoccupation with material things','Procrastinating','Lying','Boredom','Changes in goals','Over-confidence','Hiding money','Less time / energy for God, meetings and church']
   },
-  {
-    key:"A", letter:"A", label:"Angst", color:"var(--a)", tint:"var(--a-t)", hex:"#c7d63b",
-    tagline:"Low-grade fear, resentment and fantasy",
-    verse:["Cast all your anxieties on him, because he cares for you.","1 Peter 5:7"],
-    general:[
-      "Worry","Using profanity","Resentfulness","Perfectionism","Fantasy","Codependency",
-      "Sleep problems","Flirting","Gossip","Making assumptions about the thoughts of others",
-      "Poor planning","Having trouble concentrating","Using over-the-counter meds for sleep, pain, weight",
-      "Mind reading","Seeking drama","Replaying old, negative thoughts"
-    ],
-    specific:[
-      "Lingering on suggestive images instead of looking away","Fantasizing about someone I know",
-      "Rehearsing scenarios in my head","Comparing my spouse to images",
-      "Seeking attention / validation online","Scrolling to soothe a feeling",
-      "Resentment toward my spouse building quietly","Self-pity: “nobody knows how hard this is”"
-    ]
+  { key:'A', letter:'A', name:'Angst', emoji:'🟡',
+    color:'#b4d455', ink:'#6f8a1c', tint:'#f4f9e5', on:'#232b10',
+    short:'A growing background noise of undefined fear and anxiety.',
+    desc:'Getting energy from worry and emotion. My mind starts looking for relief.',
+    verse:{t:'Do not be anxious about anything, but in everything by prayer and supplication with thanksgiving let your requests be made known to God.', r:'Philippians 4:6'},
+    behaviors:['Worry','Using profanity','Resentfulness','Perfectionism','Fantasy','Lingering on suggestive images','Mindless scrolling','Codependency','Sleep problems','Flirting','Gossip','Making assumptions about the thoughts of others','Poor planning','Having trouble concentrating','Using over-the-counter meds for sleep, pain, and weight control','Mind reading','Seeking drama','Replaying old, negative thoughts']
   },
-  {
-    key:"S", letter:"S", label:"Speeding Up", color:"var(--s)", tint:"var(--s-t)", hex:"#f7ce3e",
-    tagline:"Outrunning the feelings",
-    verse:["Be still, and know that I am God.","Psalm 46:10"],
-    general:[
-      "Super busy","Workaholic","Can’t turn off thoughts","Skipping meals",
-      "Binge eating (often at night)","Overspending","Irritable","Nervousness","Over-exercising",
-      "Difficulty being alone","Difficulty being with people","Making excuses for “having to do it all”",
-      "Avoiding support","Dramatic mood swings","Too much caffeine","Lust","Driving too fast","In a hurry"
-    ],
-    specific:[
-      "Staying up late alone with a device","Endless scrolling / channel-flipping",
-      "Creeping toward borderline content","Hunting for loopholes around my filter",
-      "Arranging to be alone","Urges to masturbate rising","Looking for “just one” image",
-      "Chasing intensity — risk, speed, noise"
-    ]
+  { key:'S', letter:'S', name:'Speeding Up', emoji:'🟡',
+    color:'#f4cf3d', ink:'#a07d00', tint:'#fef9e2', on:'#2e2600',
+    short:'Trying to outrun the anxiety. Busy, driven, can’t slow down.',
+    desc:'Staying busy to avoid feeling. This is often the first sign of burnout and depression.',
+    verse:{t:'Be still, and know that I am God.', r:'Psalm 46:10'},
+    behaviors:['Super busy','Workaholic','Can’t turn off thoughts','Skipping meals','Binge eating (often at night)','Overspending','Irritable','Nervousness','Over-exercising','Difficulty being alone','Difficulty being with people','Late nights alone on devices','Making excuses for “having to do it all”','Avoiding support','Dramatic mood swings','Too much caffeine','Lust','Driving too fast','In a hurry']
   },
-  {
-    key:"T", letter:"T", label:"Ticked Off", color:"var(--t)", tint:"var(--t-t)", hex:"#f79e3d",
-    tagline:"Anger and blame make room for the lie",
-    verse:["Be angry and do not sin; do not let the sun go down on your anger.","Ephesians 4:26"],
-    general:[
-      "Procrastination causing crisis in money, work, relationships","Increasing sarcasm",
-      "Black and white thinking","Feeling alone","Overreacting","Increasing isolation","Blaming",
-      "Arguing","Irrational thinking","Defensiveness","Digestive problems","Headaches",
-      "Pridefulness","Using intimidation","Can’t forgive"
-    ],
-    specific:[
-      "Picking a fight with my spouse","Resenting my spouse’s “no”",
-      "Entitlement: “I deserve this / I’ve earned it”","Angry at my group, my sponsor, my plan",
-      "Angry at God","Rewriting the rules in my head","Mocking my own recovery",
-      "Punishing someone with silence"
-    ]
+  { key:'T', letter:'T', name:'Ticked Off', emoji:'🟠',
+    color:'#f6ae3f', ink:'#b06a00', tint:'#fef3e2', on:'#2f1d00',
+    short:'Running on the adrenaline of anger and aggression.',
+    desc:'Anger becomes fuel. Blaming, defending, and pushing people away.',
+    verse:{t:'Be angry and do not sin; do not let the sun go down on your anger, and give no opportunity to the devil.', r:'Ephesians 4:26–27'},
+    behaviors:['Procrastination causing crisis in money, work, relationships','Increasing sarcasm','Black and white thinking','Feeling alone','Overreacting','Increasing isolation','Blaming','Arguing','Irrational thinking','Defensiveness','Resenting my accountability partner','Digestive problems','Headaches','Pridefulness','Using intimidation','Can’t forgive']
   },
-  {
-    key:"E", letter:"E", label:"Exhausted", color:"var(--e)", tint:"var(--e-t)", hex:"#f4742c",
-    tagline:"Depleted, numb, one step from the old coping",
-    verse:["Come to me, all who labor and are heavy laden, and I will give you rest.","Matthew 11:28"],
-    general:[
-      "Depressed","Panicked","Confused","Hopeless","Sleeping too much or too little","Overwhelmed",
-      "Forgetful","Pessimistic","Wanting to run","Craving old coping behaviors",
-      "Thinking of using sex, drugs, or alcohol","Self abuse","Suicidal thoughts","Survival mode",
-      "No appetite","Missing work","Not returning calls","Can’t think, can’t cope","Numb"
-    ],
-    specific:[
-      "Numbing with screens for hours","Already planning when and where",
-      "Looking up old sites / re-installing old apps","Deleted my accountability app",
-      "Out of contact with my group","“What’s the point” thinking",
-      "“One more time won’t matter”","Believing I’m too far gone for God"
-    ]
+  { key:'E', letter:'E', name:'Exhausted', emoji:'🟠',
+    color:'#f2873a', ink:'#bf5512', tint:'#fdeee3', on:'#2f1503',
+    short:'Out of physical and emotional energy. Depression sets in.',
+    desc:'Coming off the adrenaline high. Cravings for old coping behaviors grow loud.',
+    verse:{t:'Come to me, all who labor and are heavy laden, and I will give you rest.', r:'Matthew 11:28'},
+    behaviors:['Depressed','Panicked','Confused','Hopeless','Sleeping too much or too little','Overwhelmed','Forgetful','Pessimistic','Wanting to run','Craving old coping behaviors','Thinking of using sex, drugs, or alcohol','Rationalizing “just one look”','Self abuse','Suicidal thoughts','Survival mode','No appetite','Missing work','Not returning calls','Can’t think, can’t cope','Numb']
   },
-  {
-    key:"R", letter:"R", label:"Relapse", color:"var(--r)", tint:"var(--r-t)", hex:"#f0515b",
-    tagline:"Tell someone today. Grace is bigger than this.",
-    verse:["If we confess our sins, he is faithful and just to forgive us and to cleanse us.","1 John 1:9"],
-    general:[
-      "Giving up","Out of control","Lost in addiction","Lying to self and others",
-      "“I can’t live without my coping behaviors”","Guilt","Aloneness","Condemnation","Shame"
-    ],
-    specific:[
-      "Viewed pornography","Masturbated / acted out","Acting out with another person",
-      "Hiding it so far","Told someone already","Confessed to my spouse",
-      "Need to call my accountability partner today","Need to re-set my devices today"
-    ]
+  { key:'R', letter:'R', name:'Relapse', emoji:'🔴',
+    color:'#ee4d4d', ink:'#c92f2f', tint:'#fde9e9', on:'#ffffff',
+    short:'Returning to the place I said I’d never go again.',
+    desc:'Coping with life on my terms. But grace is still here, and the way back is honesty.',
+    verse:{t:'If we confess our sins, he is faithful and just to forgive us our sins and to cleanse us from all unrighteousness.', r:'1 John 1:9'},
+    behaviors:['Viewing pornography','Acting out sexually','Giving up','Out of control','Lost in addiction','Lying to self and others','“I can’t live without my coping behaviors”','Guilt','Aloneness','Condemnation','Shame']
   }
 ];
-const KEYS = {}; STAGES.forEach(s => KEYS[s.key] = s);
-const LS_ENTRIES="faster_entries_v1", LS_NAME="faster_name_v1", LS_PIN="faster_pin_v1", LS_OPTS="faster_shareopts_v1";
+const MAP = Object.fromEntries(STAGES.map(s => [s.key, s]));
+const BAR_H = {REC:100, F:86, A:72, S:58, T:44, E:30, R:16};
 
-/* ==========================================================================
-   STATE + STORAGE
-   ========================================================================== */
-const $  = s => document.querySelector(s);
-const $$ = s => [...document.querySelectorAll(s)];
-let entries = load(LS_ENTRIES, []);
-let state   = blankState();
-function blankState(){
-  return { id:null, date:todayISO(), stage:null, intensity:5, selected:new Set(),
-           q1:"", q2:"", q3:"", step:"", prayer:"" };
-}
-function load(k, fb){ try{ return JSON.parse(localStorage.getItem(k)) ?? fb; }catch(e){ return fb; } }
-function save(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){ toast("Storage unavailable (private mode?)"); } }
-function todayISO(){ const d=new Date(); d.setMinutes(d.getMinutes()-d.getTimezoneOffset()); return d.toISOString().slice(0,10); }
-function fmtDate(iso){
-  const [y,m,d]=iso.split("-").map(Number);
-  return new Date(y,m-1,d).toLocaleDateString(undefined,{weekday:"short",month:"short",day:"numeric",year:"numeric"});
-}
-function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove("show"),2400); }
-const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const VERSES = [
+  {t:'No temptation has overtaken you that is not common to man. God is faithful, and he will not let you be tempted beyond your ability, but with the temptation he will also provide the way of escape, that you may be able to endure it.', r:'1 Corinthians 10:13'},
+  {t:'Search me, O God, and know my heart! Try me and know my thoughts! And see if there be any grievous way in me, and lead me in the way everlasting!', r:'Psalm 139:23–24'},
+  {t:'How can a young man keep his way pure? By guarding it according to your word.', r:'Psalm 119:9'},
+  {t:'For freedom Christ has set us free; stand firm therefore, and do not submit again to a yoke of slavery.', r:'Galatians 5:1'},
+  {t:'Therefore, confess your sins to one another and pray for one another, that you may be healed.', r:'James 5:16'},
+  {t:'The steadfast love of the LORD never ceases; his mercies never come to an end; they are new every morning; great is your faithfulness.', r:'Lamentations 3:22–23'},
+  {t:'Create in me a clean heart, O God, and renew a right spirit within me.', r:'Psalm 51:10'},
+  {t:'Blessed are the pure in heart, for they shall see God.', r:'Matthew 5:8'},
+  {t:'There is therefore now no condemnation for those who are in Christ Jesus.', r:'Romans 8:1'},
+  {t:'I have made a covenant with my eyes.', r:'Job 31:1'},
+  {t:'Finally, brothers, whatever is true, whatever is honorable, whatever is just, whatever is pure, whatever is lovely, whatever is commendable, if there is any excellence, if there is anything worthy of praise, think about these things.', r:'Philippians 4:8'},
+  {t:'And I am sure of this, that he who began a good work in you will bring it to completion at the day of Jesus Christ.', r:'Philippians 1:6'}
+];
 
-/* ==========================================================================
-   BUILD THE SCALE (Recovery banner + vertical F→R)
-   ========================================================================== */
-function chipsHTML(stage){
-  const group = (title, arr) => !arr.length ? "" :
-    `<p class="grp">${title}</p><div class="chips">` +
-    arr.map(b=>{
-      const id = stage.key+"|"+b, on = state.selected.has(id);
-      return `<label class="chip${on?" on":""}"><input type="checkbox" data-b="${esc(id)}"${on?" checked":""}>${esc(b)}</label>`;
-    }).join("") + `</div>`;
-  return group(stage.key==="RECOVERY" ? "Life on God’s terms" : "General signs", stage.general)
-       + group(stage.key==="RECOVERY" ? "My recovery disciplines" : "Pornography &amp; lust specific", stage.specific);
+/* ================= Storage ================= */
+const KEYS = {entries:'faster.entries.v1', settings:'faster.settings.v1', draft:'faster.draft.v1'};
+const store = {
+  get(k, fb){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : fb; } catch { return fb; } },
+  set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch { toast('Could not save. Storage may be full or disabled.'); return false; } },
+  del(k){ try { localStorage.removeItem(k); } catch {} }
+};
+const getEntries = () => store.get(KEYS.entries, []);
+const setEntries = list => store.set(KEYS.entries, list);
+const DEFAULT_SETTINGS = {name:'', freedomDate:'', groupNumbers:'', shareDays:true, shareNotes:true, shareReflections:false};
+const getSettings = () => ({...DEFAULT_SETTINGS, ...store.get(KEYS.settings, {})});
+
+/* ================= State ================= */
+const blank = () => ({stage:null, behaviors:{}, notes:'', reflections:{affect:'', impact:'', benefit:''}, gratitude:'', action:'', editingId:null, editingDate:null});
+let state = blank();
+let journalFilter = 'ALL';
+let currentEntryId = null;
+let shareEntry = null;
+
+const label = k => k === 'REC' ? 'Recovery' : `${MAP[k].letter} – ${MAP[k].name}`;
+const vars = s => `--c:${s.color};--ink:${s.ink};--tint:${s.tint};--on:${s.on}`;
+const letterHTML = s => s.key === 'REC' ? CROSS : s.letter;
+
+function suggested(){
+  for (const k of ['R','E','T','S','A','F']) if (state.behaviors[k]?.length) return k;
+  return state.behaviors.REC?.length ? 'REC' : null;
 }
+
+function freedomDays(){
+  const {freedomDate} = getSettings();
+  if (!freedomDate) return null;
+  const [y, m, d] = freedomDate.split('-').map(Number);
+  if (!y || !m || !d) return null;
+  const now = new Date();
+  const n = Math.round((new Date(now.getFullYear(), now.getMonth(), now.getDate()) - new Date(y, m - 1, d)) / 86400000);
+  return n >= 0 ? n : null;
+}
+
+/* ================= Toast ================= */
+let toastTimer;
+function toast(msg){
+  const t = $('#toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+/* ================= Scale ================= */
 function renderScale(){
-  $("#body-RECOVERY").innerHTML = chipsHTML(KEYS.RECOVERY);
-  $("#scale").innerHTML = STAGES.filter(s=>s.key!=="RECOVERY").map(s=>`
-    <div class="stage" id="stage-${s.key}" style="--c:${s.color};--ct:${s.tint}">
-      <div class="stage-head" data-toggle>
-        <div class="ltr">${s.letter}</div>
-        <div class="stage-name"><strong>${esc(s.label)}</strong><span>${esc(s.tagline)}</span></div>
-        <span class="badge" id="badge-${s.key}" hidden>0</span>
-        <button class="here" type="button" data-here="${s.key}">I’m here</button>
-        <span class="chev">▶</span>
-      </div>
-      <div class="body" id="body-${s.key}">${chipsHTML(s)}</div>
-    </div>`).join("");
-  wireScale(); refreshBadges(); markSelectedStage();
-}
-function wireScale(){
-  // expand / collapse
-  $$("[data-toggle]").forEach(h=>{
-    h.onclick = e => {
-      if (e.target.closest("[data-here]") || e.target.closest("label")) return;
-      h.parentElement.classList.toggle("open");
-    };
-  });
-  // "I'm here"
-  $$("[data-here]").forEach(b=>{
-    b.onclick = e => { e.stopPropagation(); selectStage(b.dataset.here); };
-  });
-  // behavior chips
-  $$('input[data-b]').forEach(cb=>{
-    cb.onchange = () => {
-      const id = cb.dataset.b;
-      cb.checked ? state.selected.add(id) : state.selected.delete(id);
-      cb.closest(".chip").classList.toggle("on", cb.checked);
-      refreshBadges();
-    };
-  });
-}
-function selectStage(key){
-  state.stage = (state.stage === key) ? null : key;
-  markSelectedStage();
-  if (state.stage){
-    const host = key==="RECOVERY" ? $("#recRow") : $("#stage-"+key);
-    host.classList.add("open");
-    const v = KEYS[key].verse;
-    $("#headVerse").innerHTML = `“${esc(v[0])}”<cite>${esc(v[1])}</cite>`;
-    if (key==="R") toast("Grace is bigger than this. Tell someone today.");
-  }
-}
-function markSelectedStage(){
-  $("#recRow").classList.toggle("sel", state.stage==="RECOVERY");
-  STAGES.filter(s=>s.key!=="RECOVERY").forEach(s=>{
-    const el=$("#stage-"+s.key); if(el) el.classList.toggle("sel", state.stage===s.key);
-  });
-}
-function refreshBadges(){
-  STAGES.forEach(s=>{
-    const n=[...state.selected].filter(id=>id.startsWith(s.key+"|")).length;
-    const b=$("#badge-"+s.key); if(!b) return;
-    b.textContent=n; b.hidden = n===0;
-  });
-}
-
-/* ==========================================================================
-   FORM <-> STATE
-   ========================================================================== */
-const FIELDS = ["q1","q2","q3","step","prayer"];
-function readForm(){
-  state.date = $("#date").value || todayISO();
-  state.intensity = +$("#intensity").value;
-  FIELDS.forEach(f => state[f] = $("#"+f).value.trim());
-  return state;
-}
-function writeForm(){
-  $("#date").value = state.date;
-  $("#intensity").value = state.intensity;
-  $("#intenseVal").textContent = state.intensity;
-  FIELDS.forEach(f => $("#"+f).value = state[f] || "");
-  renderScale();
-}
-function behaviorList(entry){
-  return (entry.behaviors||[]).map(b => `${b.label}`);
-}
-function entryFromState(){
-  readForm();
-  const behaviors = [...state.selected].map(id=>{
-    const [k, ...rest] = id.split("|");
-    return { stage:k, label:rest.join("|") };
-  }).sort((a,b)=> STAGES.findIndex(s=>s.key===a.stage) - STAGES.findIndex(s=>s.key===b.stage));
-  return { id: state.id || "e"+Date.now().toString(36)+Math.random().toString(36).slice(2,6),
-           date: state.date, createdAt: state.id ? undefined : new Date().toISOString(),
-           stage: state.stage, intensity: state.intensity, behaviors,
-           q1:state.q1, q2:state.q2, q3:state.q3, step:state.step, prayer:state.prayer };
-}
-function stateFromEntry(e){
-  state = blankState();
-  state.id=e.id; state.date=e.date; state.stage=e.stage; state.intensity=e.intensity||5;
-  FIELDS.forEach(f=>state[f]=e[f]||"");
-  (e.behaviors||[]).forEach(b=>state.selected.add(b.stage+"|"+b.label));
-  writeForm();
-}
-
-/* ==========================================================================
-   SAVE / RESET
-   ========================================================================== */
-$("#save").onclick = () => {
-  const e = entryFromState();
-  if(!e.stage && !e.behaviors.length && !e.q1 && !e.step){ toast("Pick where you are first."); return; }
-  const i = entries.findIndex(x=>x.id===e.id);
-  if(i>-1){ e.createdAt = entries[i].createdAt; entries[i]=e; } else entries.unshift(e);
-  entries.sort((a,b)=> (b.date+(b.createdAt||"")).localeCompare(a.date+(a.createdAt||"")));
-  save(LS_ENTRIES, entries);
-  state.id = e.id;
-  renderHistory();
-  toast("Saved to this device ✓");
-  buildReport();
-};
-$("#reset").onclick = () => {
-  if(!confirm("Clear the form? Unsaved text will be lost.")) return;
-  state = blankState(); writeForm(); $("#sharePanel").hidden = true;
-};
-$("#intensity").oninput = e => $("#intenseVal").textContent = e.target.value;
-
-/* ==========================================================================
-   SHARE REPORT
-   ========================================================================== */
-let shareOpts = load(LS_OPTS, {name:true,behaviors:true,step:true,prayer:true,reflection:false,verse:true});
-$$('#shareOpts input').forEach(cb=>{
-  cb.checked = !!shareOpts[cb.dataset.opt];
-  cb.onchange = () => { shareOpts[cb.dataset.opt]=cb.checked; save(LS_OPTS,shareOpts); buildReport(); };
-});
-$("#myName").value = load(LS_NAME,"") || "";
-$("#myName").oninput = e => { save(LS_NAME, e.target.value.trim()); buildReport(); };
-
-function buildReport(entry){
-  const e = entry || entryFromState();
-  const s = e.stage ? KEYS[e.stage] : null;
-  const name = (load(LS_NAME,"")||"").trim();
-  const L = [];
-  L.push("FASTER CHECK-IN");
-  L.push(fmtDate(e.date) + (shareOpts.name && name ? "  ·  " + name : ""));
-  L.push("—".repeat(22));
-  L.push("Where I am: " + (s ? (s.key==="RECOVERY" ? "RECOVERY ✝" : s.label.toUpperCase()+" ("+s.letter+")") : "not sure yet"));
-  L.push("Intensity: " + (e.intensity||"-") + "/10");
-  if(shareOpts.behaviors && e.behaviors.length){
-    L.push(""); L.push("What I'm seeing in myself:");
-    e.behaviors.forEach(b=>L.push("• " + b.label));
-  }
-  if(shareOpts.reflection && (e.q1||e.q2||e.q3)){
-    L.push("");
-    if(e.q1) L.push("Affecting me: " + e.q1);
-    if(e.q2) L.push("Affecting others: " + e.q2);
-    if(e.q3) L.push("What I think I'm getting: " + e.q3);
-  }
-  if(shareOpts.step && e.step){ L.push(""); L.push("My next right step: " + e.step); }
-  if(shareOpts.prayer && e.prayer){ L.push(""); L.push("Please pray: " + e.prayer); }
-  if(shareOpts.verse && s){ L.push(""); L.push('"' + s.verse[0] + '" — ' + s.verse[1]); }
-  L.push(""); L.push("Walking in the light with you. (1 John 1:7)");
-  const txt = L.join("\n");
-  $("#report").textContent = txt;
-  $("#sharePanel").hidden = false;
-  return txt;
-}
-$("#buildShare").onclick = () => { buildReport(); $("#sharePanel").scrollIntoView({behavior:"smooth",block:"center"}); };
-const reportText = () => $("#report").innerText.replace(/\u00a0/g," ").trim();
-
-$("#shareBtn").onclick = async () => {
-  const text = reportText();
-  if(navigator.share){
-    try{ await navigator.share({ title:"FASTER Check-In", text }); return; }
-    catch(err){ if(err && err.name==="AbortError") return; }
-  }
-  copy(text); toast("Share sheet unavailable — copied instead");
-};
-$("#smsBtn").onclick = () => {
-  const body = encodeURIComponent(reportText());
-  const iOS = /iP(hone|od|ad)|Macintosh/.test(navigator.userAgent) && "ontouchend" in document;
-  location.href = (iOS ? "sms:&body=" : "sms:?body=") + body;
-};
-$("#copyBtn").onclick = () => { copy(reportText()); };
-function copy(text){
-  if(navigator.clipboard?.writeText){
-    navigator.clipboard.writeText(text).then(()=>toast("Copied ✓"), fallback);
-  } else fallback();
-  function fallback(){
-    const ta=document.createElement("textarea"); ta.value=text; document.body.appendChild(ta);
-    ta.select(); try{ document.execCommand("copy"); toast("Copied ✓"); }catch(e){ toast("Press-and-hold to copy"); }
-    ta.remove();
-  }
-}
-
-/* ==========================================================================
-   JOURNAL / HISTORY
-   ========================================================================== */
-function renderHistory(){
-  const host=$("#entries"), trend=$("#trend");
-  if(!entries.length){
-    host.innerHTML = `<div class="card empty">No entries yet. Your first check-in is an act of courage.</div>`;
-    trend.innerHTML=""; $("#stats").textContent=""; return;
-  }
-  const recent = entries.slice(0,20).reverse();
-  trend.innerHTML = recent.map(e=>{
-    const s = e.stage?KEYS[e.stage]:null;
-    return `<span class="dot" title="${esc(fmtDate(e.date))} — ${s?esc(s.label):"unmarked"}"
-      style="background:${s?s.hex:"#c9cec4"}">${s?s.letter:"?"}</span>`;
-  }).join("");
-
-  const lastR = entries.find(e=>e.stage==="R");
-  const days = lastR ? Math.max(0, Math.round((new Date(todayISO()) - new Date(lastR.date))/864e5)) : null;
-  const inRecovery = entries.filter(e=>e.stage==="RECOVERY").length;
-  $("#stats").textContent =
-    `${entries.length} check-in${entries.length>1?"s":""} · ${inRecovery} marked Recovery` +
-    (days!==null ? ` · ${days} day${days===1?"":"s"} since a day marked Relapse` : "");
-
-  host.innerHTML = entries.map(e=>{
-    const s=e.stage?KEYS[e.stage]:null;
-    const b=e.behaviors||[];
-    return `<details class="entry" style="--c:${s?s.color:"#c9cec4"}">
-      <summary>
-        <span class="pill">${s?esc(s.key==="RECOVERY"?"Recovery ✝":s.letter+" · "+s.label):"—"}</span>
-        <span class="when">${esc(fmtDate(e.date))}</span>
-        <span class="spacer" style="flex:1"></span>
-        <span class="hint" style="margin:0">${b.length} noted${e.intensity?" · "+e.intensity+"/10":""}</span>
-      </summary>
-      <div class="det">
-        ${b.length?`<h4>Behaviors</h4><ul>${b.map(x=>`<li>${esc(x.label)}</li>`).join("")}</ul>`:""}
-        ${e.q1?`<h4>Affecting me</h4><p>${esc(e.q1)}</p>`:""}
-        ${e.q2?`<h4>Affecting others</h4><p>${esc(e.q2)}</p>`:""}
-        ${e.q3?`<h4>What I thought I was getting</h4><p>${esc(e.q3)}</p>`:""}
-        ${e.step?`<h4>Next right step</h4><p>${esc(e.step)}</p>`:""}
-        ${e.prayer?`<h4>Prayer</h4><p>${esc(e.prayer)}</p>`:""}
-        <div class="actions">
-          <button class="btn ghost sm" data-edit="${e.id}">Open &amp; edit</button>
-          <button class="btn ghost sm" data-share="${e.id}">Share this</button>
-          <button class="btn danger sm" data-del="${e.id}">Delete</button>
+  $('#scale').innerHTML = STAGES.map(s => `
+    <section class="stage" id="stage-${s.key}" data-key="${s.key}" style="${vars(s)}">
+      <div class="stage-head" role="button" tabindex="0" aria-expanded="false">
+        <div class="letter" aria-hidden="true">${letterHTML(s)}</div>
+        <div class="meta">
+          <div class="name">${esc(s.name)}</div>
+          <div class="desc">${esc(s.short)}</div>
+        </div>
+        <div class="head-right">
+          <span class="count" hidden>0</span>
+          <button class="here" type="button" aria-pressed="false">I’m here</button>
+          ${CHEV}
         </div>
       </div>
-    </details>`;
-  }).join("");
-
-  host.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>{
-    stateFromEntry(entries.find(x=>x.id===b.dataset.edit)); showTab("p-check"); window.scrollTo({top:0,behavior:"smooth"});
-  });
-  host.querySelectorAll("[data-share]").forEach(b=>b.onclick=()=>{
-    const e=entries.find(x=>x.id===b.dataset.share);
-    stateFromEntry(e); showTab("p-check"); buildReport(e);
-    $("#sharePanel").scrollIntoView({behavior:"smooth",block:"center"});
-  });
-  host.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{
-    if(!confirm("Delete this entry? This cannot be undone.")) return;
-    entries = entries.filter(x=>x.id!==b.dataset.del); save(LS_ENTRIES,entries); renderHistory(); toast("Deleted");
-  });
+      <div class="stage-body"><div>
+        <div class="stage-inner">
+          <p class="long">${esc(s.desc)}</p>
+          <div class="chips">
+            ${s.behaviors.map((b, i) => `<button type="button" class="chip" data-i="${i}" aria-pressed="false">${esc(b)}</button>`).join('')}
+          </div>
+          <blockquote class="verse">“${esc(s.verse.t)}”<cite>${esc(s.verse.r)}</cite></blockquote>
+        </div>
+      </div></div>
+    </section>`).join('');
 }
 
-/* ==========================================================================
-   BACKUP / WIPE / PASSCODE
-   ========================================================================== */
-$("#exportBtn").onclick = () => {
-  const blob=new Blob([JSON.stringify({app:"faster-checkin",v:1,exported:new Date().toISOString(),entries},null,2)],{type:"application/json"});
-  const a=document.createElement("a"); a.href=URL.createObjectURL(blob);
-  a.download="faster-journal-"+todayISO()+".json"; a.click(); URL.revokeObjectURL(a.href);
-};
-$("#importBtn").onclick = () => $("#importFile").click();
-$("#importFile").onchange = e => {
-  const f=e.target.files[0]; if(!f) return;
-  const r=new FileReader();
-  r.onload = () => {
-    try{
-      const d=JSON.parse(r.result); const inc=Array.isArray(d)?d:d.entries;
-      if(!Array.isArray(inc)) throw 0;
-      const ids=new Set(entries.map(x=>x.id));
-      inc.forEach(x=>{ if(!ids.has(x.id)) entries.push(x); });
-      entries.sort((a,b)=>(b.date+(b.createdAt||"")).localeCompare(a.date+(a.createdAt||"")));
-      save(LS_ENTRIES,entries); renderHistory(); toast("Imported "+inc.length+" entries");
-    }catch(err){ toast("That file didn’t look right"); }
+function toggleOpen(card){
+  const open = card.classList.toggle('open');
+  $('.stage-head', card).setAttribute('aria-expanded', open);
+}
+
+function selectStage(k, force = false){
+  state.stage = (!force && state.stage === k) ? null : k;
+  updateScaleUI(); saveDraft();
+}
+
+function toggleBehavior(k, text){
+  const list = state.behaviors[k] || (state.behaviors[k] = []);
+  const i = list.indexOf(text);
+  i > -1 ? list.splice(i, 1) : list.push(text);
+  if (!list.length) delete state.behaviors[k];
+  updateScaleUI(); saveDraft();
+}
+
+function updateScaleUI(){
+  STAGES.forEach(s => {
+    const card = $('#stage-' + s.key);
+    const sel = state.behaviors[s.key] || [];
+    const isHere = state.stage === s.key;
+    card.classList.toggle('selected', isHere);
+    const here = $('.here', card);
+    here.textContent = isHere ? '✓ I’m here' : 'I’m here';
+    here.setAttribute('aria-pressed', isHere);
+    const cnt = $('.count', card);
+    cnt.hidden = !sel.length; cnt.textContent = sel.length;
+    $$('.chip', card).forEach(ch => {
+      const on = sel.includes(s.behaviors[+ch.dataset.i]);
+      ch.classList.toggle('on', on);
+      ch.setAttribute('aria-pressed', on);
+    });
+  });
+  updateStatus(); updateBanners();
+}
+
+function updateStatus(){
+  const sug = suggested();
+  let html = '';
+  if (state.stage){
+    const s = MAP[state.stage];
+    html += `<div class="status-main" style="${vars(s)}">
+      <div class="mini-letter">${letterHTML(s)}</div>
+      <div><div class="eyebrow">Today I’m at</div><div class="status-name">${esc(label(s.key))}</div></div>
+    </div>`;
+  } else {
+    html += `<div class="status-empty">No stage marked yet. Tap <b>I’m here</b> on the stage that fits you right now.</div>`;
+  }
+  if (sug && sug !== state.stage){
+    const s = MAP[sug];
+    html += `<div class="suggest" style="${vars(s)}">Your selections reach down to <b>${esc(label(sug))}</b>. <button type="button" class="link" data-mark="${sug}">Mark it</button></div>`;
+  }
+  $('#statusCard').innerHTML = html;
+}
+
+function updateBanners(){
+  const e = state.behaviors.E || [];
+  $('#crisis').hidden = !(e.includes('Suicidal thoughts') || e.includes('Self abuse'));
+  $('#grace').hidden = !(state.stage === 'R' || (state.behaviors.R || []).length);
+  $('#editBanner').hidden = !state.editingId;
+  if (state.editingId) $('#editDate').textContent = fmtDate(new Date(state.editingDate));
+}
+
+/* ================= Form ================= */
+function readForm(){
+  state.notes = $('#notes').value;
+  state.reflections = {affect:$('#rAffect').value, impact:$('#rImpact').value, benefit:$('#rBenefit').value};
+  state.gratitude = $('#gratitude').value;
+  state.action = $('#action').value;
+}
+function writeForm(){
+  $('#notes').value = state.notes || '';
+  $('#rAffect').value = state.reflections?.affect || '';
+  $('#rImpact').value = state.reflections?.impact || '';
+  $('#rBenefit').value = state.reflections?.benefit || '';
+  $('#gratitude').value = state.gratitude || '';
+  $('#action').value = state.action || '';
+  const r = state.reflections || {};
+  $('#reflectDetails').open = !!(r.affect || r.impact || r.benefit);
+}
+function applyState(){
+  writeForm(); updateScaleUI();
+}
+function saveDraft(){ store.set(KEYS.draft, state); }
+function hasContent(){
+  readForm();
+  const r = state.reflections;
+  return !!(state.stage || Object.keys(state.behaviors).length || state.notes.trim() || r.affect.trim() || r.impact.trim() || r.benefit.trim() || state.gratitude.trim() || state.action.trim());
+}
+function resetForm(){
+  state = blank(); store.del(KEYS.draft);
+  $$('.stage.open').forEach(c => toggleOpen(c));
+  applyState();
+}
+
+function saveEntry(){
+  readForm();
+  if (!state.stage){
+    const sug = suggested();
+    if (sug && confirm(`You haven’t marked a stage yet. Save this check-in as “${label(sug)}”?`)){
+      state.stage = sug;
+    } else {
+      if (!sug) toast('Mark where you are on the scale first.');
+      $('#scale').scrollIntoView({behavior:'smooth', block:'start'});
+      return null;
+    }
+  }
+  const behaviors = {};
+  STAGES.forEach(s => { const l = state.behaviors[s.key]; if (l?.length) behaviors[s.key] = s.behaviors.filter(b => l.includes(b)).concat(l.filter(b => !s.behaviors.includes(b))); });
+  const data = {
+    stage: state.stage, behaviors,
+    notes: state.notes.trim(),
+    reflections: {affect:state.reflections.affect.trim(), impact:state.reflections.impact.trim(), benefit:state.reflections.benefit.trim()},
+    gratitude: state.gratitude.trim(), action: state.action.trim()
   };
-  r.readAsText(f); e.target.value="";
-};
-$("#wipeBtn").onclick = () => {
-  if(!confirm("Delete ALL entries on this device? This cannot be undone.")) return;
-  if(!confirm("Are you sure? Consider exporting a backup first.")) return;
-  entries=[]; save(LS_ENTRIES,entries); renderHistory(); toast("All entries deleted");
-};
-$("#setPin").onclick = () => {
-  const p=prompt("Choose a 4–8 digit passcode:"); if(p===null) return;
-  if(!/^\d{4,8}$/.test(p)) return toast("Numbers only, 4–8 digits");
-  save(LS_PIN, btoa(p)); toast("Passcode set");
-};
-$("#clearPin").onclick = () => { localStorage.removeItem(LS_PIN); toast("Passcode removed"); };
-function gate(){
-  const pin=load(LS_PIN,null); if(!pin) return;
-  const lock=$("#lock"); lock.hidden=false; $("#lockPin").focus();
-  const go=()=>{ if(btoa($("#lockPin").value)===pin){ lock.hidden=true; } else { $("#lockPin").value=""; toast("Try again"); } };
-  $("#lockGo").onclick=go;
-  $("#lockPin").onkeydown=e=>{ if(e.key==="Enter") go(); };
+  const entries = getEntries();
+  const now = new Date().toISOString();
+  const idx = state.editingId ? entries.findIndex(e => e.id === state.editingId) : -1;
+  let entry;
+  if (idx > -1){ entry = {...entries[idx], ...data, updatedAt: now}; entries[idx] = entry; }
+  else { entry = {id: uid(), createdAt: now, updatedAt: now, ...data}; entries.push(entry); }
+  if (!setEntries(entries)) return null;
+  resetForm();
+  toast(idx > -1 ? 'Check-in updated ✓' : 'Saved to your journal ✓');
+  window.scrollTo({top:0, behavior:'smooth'});
+  return entry;
 }
 
-/* ==========================================================================
-   TABS + BOOT
-   ========================================================================== */
-function showTab(panel){
-  $$('nav.tabs button').forEach(b=>b.setAttribute("aria-selected", b.dataset.panel===panel));
-  $$('section[role=tabpanel]').forEach(s=>s.hidden = s.id!==panel);
-}
-$$('nav.tabs button').forEach(b=>b.onclick=()=>showTab(b.dataset.panel));
+/* ================= Journal ================= */
+function renderJournal(){
+  const all = getEntries().slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
-gate();
-writeForm();
-renderHistory();
-// open today's existing entry if there is one
-const todays = entries.find(e=>e.date===todayISO());
-if(todays) stateFromEntry(todays);
+  // Trend
+  const last = all.slice(0, 30).reverse();
+  $('#trend').innerHTML = last.length
+    ? last.map(e => `<div class="bar" title="${esc(fmtDate(new Date(e.createdAt)) + ': ' + label(e.stage))}" style="height:${BAR_H[e.stage]}%;background:${MAP[e.stage].color}"></div>`).join('')
+    : `<div class="tiny" style="margin:auto;align-self:center">Your check-ins will appear here.</div>`;
+
+  // Stats
+  const weekAgo = Date.now() - 7 * 86400000;
+  const week = all.filter(e => new Date(e.createdAt).getTime() >= weekAgo).length;
+  const counts = {};
+  all.forEach(e => counts[e.stage] = (counts[e.stage] || 0) + 1);
+  const top = Object.entries(counts).sort((a, b) => b[1] - a[1])[0];
+  $('#stats').innerHTML = `
+    <div class="stat"><b>${all.length}</b><span>Total check-ins</span></div>
+    <div class="stat"><b>${week}</b><span>Last 7 days</span></div>
+    <div class="stat"><b style="color:${top ? MAP[top[0]].ink : 'inherit'}">${top ? (top[0] === 'REC' ? 'Recovery' : top[0]) : '–'}</b><span>Most frequent</span></div>`;
+
+  // Filters
+  $('#filters').innerHTML = `<button class="fchip ${journalFilter === 'ALL' ? 'on' : ''}" data-f="ALL">All</button>` +
+    STAGES.map(s => `<button class="fchip ${journalFilter === s.key ? 'on' : ''}" data-f="${s.key}" style="${vars(s)}">${s.key === 'REC' ? 'Recovery' : s.letter}</button>`).join('');
+
+  // Entries
+  const list = journalFilter === 'ALL' ? all : all.filter(e => e.stage === journalFilter);
+  if (!list.length){
+    $('#entries').innerHTML = `<div class="empty card">
+      <p class="scripture">“He who began a good work in you will bring it to completion.”</p><cite>Philippians 1:6</cite>
+      <p class="tiny" style="margin-top:12px">${all.length ? 'No check-ins match this filter.' : 'No check-ins yet. Your first one is a step of courage.'}</p></div>`;
+    return;
+  }
+  $('#entries').innerHTML = list.map(e => {
+    const s = MAP[e.stage] || MAP.REC;
+    const d = new Date(e.createdAt);
+    const count = Object.values(e.behaviors || {}).reduce((a, b) => a + b.length, 0);
+    return `<button class="entry" data-id="${esc(e.id)}" style="${vars(s)}">
+      <div class="mini-letter">${letterHTML(s)}</div>
+      <div class="entry-main">
+        <div class="entry-top"><span class="entry-stage">${esc(label(s.key))}</span><span class="entry-date">${esc(fmtDate(d))}</span></div>
+        <div class="entry-sub">${count} behavior${count === 1 ? '' : 's'} · ${esc(fmtTime(d))}</div>
+        ${e.notes ? `<div class="entry-notes">${esc(e.notes)}</div>` : ''}
+      </div>
+    </button>`;
+  }).join('');
+}
+
+function behaviorsHTML(e){
+  const groups = STAGES.filter(s => e.behaviors?.[s.key]?.length);
+  if (!groups.length) return '<p class="tiny">No behaviors selected.</p>';
+  return groups.map(s => `<div class="bgroup" style="${vars(s)}">
+    <div class="bgroup-title">${esc(label(s.key))}</div>
+    <div class="chips static">${e.behaviors[s.key].map(b => `<span class="chip on">${esc(b)}</span>`).join('')}</div>
+  </div>`).join('');
+}
+const block = (title, text) => text ? `<div class="block"><div class="eyebrow">${title}</div><p>${esc(text)}</p></div>` : '';
+
+function openEntry(id){
+  const e = getEntries().find(x => x.id === id);
+  if (!e) return;
+  currentEntryId = id;
+  const s = MAP[e.stage] || MAP.REC;
+  const d = new Date(e.createdAt);
+  $('#entryBody').innerHTML = `
+    <div class="detail-head" style="${vars(s)}">
+      <div class="mini-letter big">${letterHTML(s)}</div>
+      <div><div class="status-name">${esc(label(s.key))}</div>
+      <div class="tiny">${esc(fmtDate(d))} · ${esc(fmtTime(d))}${e.updatedAt && e.updatedAt !== e.createdAt ? ' · edited' : ''}</div></div>
+    </div>
+    ${behaviorsHTML(e)}
+    ${block('Notes', e.notes)}
+    ${block('How it affects me', e.reflections?.affect)}
+    ${block('Impact on the people I love', e.reflections?.impact)}
+    ${block('What I think I gain (is it healthy?)', e.reflections?.benefit)}
+    ${block('Grateful for', e.gratitude)}
+    ${block('Next right step', e.action)}`;
+  $('#entryDlg').showModal();
+}
+
+function editEntry(id){
+  const e = getEntries().find(x => x.id === id);
+  if (!e) return;
+  if (hasContent() && state.editingId !== id && !confirm('Replace your current unsaved check-in with this entry?')) return;
+  state = {
+    ...blank(),
+    stage: e.stage,
+    behaviors: JSON.parse(JSON.stringify(e.behaviors || {})),
+    notes: e.notes || '',
+    reflections: {affect:'', impact:'', benefit:'', ...(e.reflections || {})},
+    gratitude: e.gratitude || '', action: e.action || '',
+    editingId: e.id, editingDate: e.createdAt
+  };
+  $('#entryDlg').close();
+  applyState(); saveDraft();
+  showTab('checkin');
+}
+
+function deleteEntry(id){
+  if (!confirm('Delete this check-in permanently?')) return;
+  setEntries(getEntries().filter(e => e.id !== id));
+  if (state.editingId === id){ state.editingId = null; state.editingDate = null; updateBanners(); saveDraft(); }
+  $('#entryDlg').close();
+  renderJournal(); toast('Check-in deleted');
+}
+
+/* ================= Share ================= */
+function buildReport(e, {notes = true, reflections = false} = {}){
+  const s = MAP[e.stage] || MAP.REC;
+  const st = getSettings();
+  const d = new Date(e.createdAt);
+  const L = [];
+  L.push(`✝️ FASTER Check-In${st.name ? ' · ' + st.name : ''}`);
+  L.push(`${fmtDate(d)} · ${fmtTime(d)}`);
+  L.push('');
+  L.push(`${s.emoji} Today I'm at: ${label(s.key)}`);
+  const days = freedomDays();
+  if (days !== null && st.shareDays) L.push(`🕊️ ${days} day${days === 1 ? '' : 's'} of freedom`);
+
+  const groups = STAGES.filter(x => e.behaviors?.[x.key]?.length);
+  if (groups.length){
+    L.push('');
+    L.push("What I'm noticing:");
+    groups.forEach(x => L.push(`${x.emoji} ${x.key === 'REC' ? 'Recovery' : x.letter + ' (' + x.name + ')'}: ${e.behaviors[x.key].join(', ')}`));
+  }
+  if (notes && e.notes){ L.push(''); L.push(`📝 Notes: ${e.notes}`); }
+  const r = e.reflections || {};
+  if (reflections && (r.affect || r.impact || r.benefit)){
+    L.push(''); L.push('💭 Reflections:');
+    if (r.affect)  L.push(`• How it affects me: ${r.affect}`);
+    if (r.impact)  L.push(`• Impact on others: ${r.impact}`);
+    if (r.benefit) L.push(`• What I think I gain: ${r.benefit}`);
+  }
+  if (e.gratitude || e.action) L.push('');
+  if (e.gratitude) L.push(`🙌 Grateful for: ${e.gratitude}`);
+  if (e.action)    L.push(`👣 Next right step: ${e.action}`);
+  L.push('');
+  L.push(
+    e.stage === 'REC' ? '🙏 Thank you for walking with me. Praise God for His faithfulness!' :
+    (e.stage === 'E' || e.stage === 'R') ? "🙏 I need support today. Please pray for me and reach out." :
+    '🙏 Would you pray for me today?'
+  );
+  return L.join('\n');
+}
+
+function openShare(entry){
+  if (!entry) return;
+  shareEntry = entry;
+  const st = getSettings();
+  $('#shNotes').checked = st.shareNotes;
+  $('#shReflect').checked = st.shareReflections;
+  refreshShareText();
+  $('#nativeShareBtn').hidden = !navigator.share;
+  $('#shareDlg').showModal();
+}
+function refreshShareText(){
+  $('#shareText').value = buildReport(shareEntry, {notes: $('#shNotes').checked, reflections: $('#shReflect').checked});
+}
+
+const isIOS = () => /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+function smsHref(text){
+  const nums = getSettings().groupNumbers.split(/[,;\n]/).map(n => n.replace(/[\^\d+]/g, '')).filter(Boolean);
+  const body = encodeURIComponent(text);
+  if (nums.length) return isIOS() ? `sms:/open?addresses=${nums.join(',')}&body=${body}` : `sms:${nums.join(',')}?body=${body}`;
+  return isIOS() ? `sms:&body=${body}` : `sms:?body=${body}`;
+}
+
+async function copyText(t){
+  try { await navigator.clipboard.writeText(t); return true; }
+  catch {
+    const ta = document.createElement('textarea');
+    ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    let ok = false; try { ok = document.execCommand('copy'); } catch {}
+    ta.remove(); return ok;
+  }
+}
+
+/* ================= Backup ================= */
+function exportData(){
+  const data = {app:'faster-freedom-checkin', version:1, exportedAt:new Date().toISOString(), entries:getEntries(), settings:getSettings()};
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `faster-journal-${new Date().toISOString().slice(0, 10)}.json`;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  toast('Backup downloaded');
+}
+function importData(file){
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const data = JSON.parse(reader.result);
+      const incoming = Array.isArray(data) ? data : data.entries;
+      if (!Array.isArray(incoming)) throw new Error('bad');
+      const byId = new Map(getEntries().map(e => [e.id, e]));
+      let added = 0;
+      incoming.forEach(e => {
+        if (!e || !e.id || !e.createdAt || !MAP[e.stage]) return;
+        const cur = byId.get(e.id);
+        if (!cur){ byId.set(e.id, e); added++; }
+        else if (new Date(e.updatedAt || 0) > new Date(cur.updatedAt || 0)) byId.set(e.id, e);
+      });
+      setEntries([...byId.values()]);
+      if (data.settings && !getSettings().name && confirm('Also restore settings from this backup?')) store.set(KEYS.settings, {...DEFAULT_SETTINGS, ...data.settings});
+      updateHeader(); renderJournal();
+      toast(`Imported ${added} new check-in${added === 1 ? '' : 's'}`);
+    } catch { toast('That file doesn’t look like a FASTER backup.'); }
+  };
+  reader.readAsText(file);
+}
+
+/* ================= Settings / header ================= */
+function updateHeader(){
+  const n = freedomDays();
+  const b = $('#freedomBadge');
+  b.hidden = n === null;
+  if (n !== null) b.textContent = `🕊️ ${n} day${n === 1 ? '' : 's'}`;
+}
+function openSettings(){
+  const s = getSettings();
+  $('#setName').value = s.name; $('#setDate').value = s.freedomDate; $('#setNumbers').value = s.groupNumbers;
+  $('#setShareDays').checked = s.shareDays; $('#setShareNotes').checked = s.shareNotes; $('#setShareReflect').checked = s.shareReflections;
+  $('#settingsDlg').showModal();
+}
+function saveSettings(){
+  store.set(KEYS.settings, {
+    name: $('#setName').value.trim(), freedomDate: $('#setDate').value, groupNumbers: $('#setNumbers').value.trim(),
+    shareDays: $('#setShareDays').checked, shareNotes: $('#setShareNotes').checked, shareReflections: $('#setShareReflect').checked
+  });
+  updateHeader(); $('#settingsDlg').close(); toast('Settings saved');
+}
+
+/* ================= Tabs ================= */
+function showTab(name){
+  $$('.view').forEach(v => v.hidden = v.id !== 'view-' + name);
+  $$('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+  if (name === 'journal') renderJournal();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ================= Events ================= */
+function bind(){
+  // Scale interactions
+  $('#scale').addEventListener('click', ev => {
+    const card = ev.target.closest('.stage'); if (!card) return;
+    const key = card.dataset.key;
+    if (ev.target.closest('.here')){ selectStage(key); return; }
+    const chip = ev.target.closest('.chip');
+    if (chip){ toggleBehavior(key, MAP[key].behaviors[+chip.dataset.i]); return; }
+    if (ev.target.closest('.stage-head')) toggleOpen(card);
+  });
+  $('#scale').addEventListener('keydown', ev => {
+    if ((ev.key === 'Enter' || ev.key === ' ') && ev.target.classList.contains('stage-head')){
+      ev.preventDefault(); toggleOpen(ev.target.closest('.stage'));
+    }
+  });
+  $('#statusCard').addEventListener('click', ev => {
+    const b = ev.target.closest('[data-mark]'); if (b) selectStage(b.dataset.mark, true);
+  });
+
+  // Form autosave
+  ['#notes','#rAffect','#rImpact','#rBenefit','#gratitude','#action'].forEach(sel =>
+    $(sel).addEventListener('input', () => { readForm(); saveDraft(); }));
+
+  $('#saveBtn').addEventListener('click', saveEntry);
+  $('#saveShareBtn').addEventListener('click', () => { const e = saveEntry(); if (e) openShare(e); });
+  $('#clearBtn').addEventListener('click', () => {
+    if (!hasContent() && !state.editingId) return;
+    if (confirm(state.editingId ? 'Stop editing and clear the form? (The saved entry is unchanged.)' : 'Clear this check-in?')){ resetForm(); toast('Cleared'); }
+  });
+  $('#cancelEdit').addEventListener('click', () => { resetForm(); toast('Edit canceled'); });
+
+  // Journal
+  $('#filters').addEventListener('click', ev => {
+    const b = ev.target.closest('[data-f]'); if (!b) return;
+    journalFilter = b.dataset.f; renderJournal();
+  });
+  $('#entries').addEventListener('click', ev => {
+    const b = ev.target.closest('.entry'); if (b) openEntry(b.dataset.id);
+  });
+  $('#entryShare').addEventListener('click', () => {
+    const e = getEntries().find(x => x.id === currentEntryId);
+    $('#entryDlg').close(); openShare(e);
+  });
+  $('#entryEdit').addEventListener('click', () => editEntry(currentEntryId));
+  $('#entryDelete').addEventListener('click', () => deleteEntry(currentEntryId));
+
+  $('#exportBtn').addEventListener('click', exportData);
+  $('#importFile').addEventListener('change', ev => { const f = ev.target.files[0]; if (f) importData(f); ev.target.value = ''; });
+  $('#wipeBtn').addEventListener('click', () => {
+    if (!getEntries().length){ toast('Your journal is already empty'); return; }
+    if (confirm('Delete ALL journal entries on this device? This cannot be undone.\n\nTip: export a backup first.') && confirm('Are you absolutely sure?')){
+      store.del(KEYS.entries); renderJournal(); toast('All entries deleted');
+    }
+  });
+
+  // Share dialog
+  $('#shNotes').addEventListener('change', refreshShareText);
+  $('#shReflect').addEventListener('change', refreshShareText);
+  $('#nativeShareBtn').addEventListener('click', async () => {
+    const text = $('#shareText').value;
+    try { await navigator.share({text}); }
+    catch (err){ if (err.name !== 'AbortError'){ await copyText(text); toast('Copied. Paste it into your group chat.'); } }
+  });
+  $('#smsBtn').addEventListener('click', () => {
+    const text = $('#shareText').value;
+    copyText(text);
+    window.location.href = smsHref(text);
+  });
+  $('#copyBtn').addEventListener('click', async () => {
+    toast(await copyText($('#shareText').value) ? 'Copied. Paste it into your group chat.' : 'Couldn’t copy. Select the text and copy manually.');
+  });
+
+  // Settings
+  $('#settingsBtn').addEventListener('click', openSettings);
+  $('#saveSettings').addEventListener('click', saveSettings);
+
+  // Tabs
+  $$('.tab').forEach(t => t.addEventListener('click', () => showTab(t.dataset.tab)));
+
+  // Dialog closing
+  $$('dialog').forEach(d => {
+    d.addEventListener('click', ev => { if (ev.target === d) d.close(); });
+    $$('[data-close]', d).forEach(b => b.addEventListener('click', () => d.close()));
+  });
+}
+
+/* ================= Init ================= */
+function init(){
+  renderScale();
+  const v = VERSES[Math.floor(Date.now() / 86400000) % VERSES.length];
+  $('#dailyVerse').textContent = `“${v.t}”`;
+  $('#dailyRef').textContent = v.r;
+
+  const draft = store.get(KEYS.draft, null);
+  if (draft && typeof draft === 'object'){
+    state = {...blank(), ...draft, reflections:{...blank().reflections, ...(draft.reflections || {})}, behaviors: draft.behaviors || {}};
+    if (state.stage && !MAP[state.stage]) state.stage = null;
+  }
+  applyState();
+  updateHeader();
+  bind();
+}
+init();
+})();
+</script>
+</body>
+</html>
